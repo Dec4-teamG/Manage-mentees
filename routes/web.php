@@ -26,16 +26,16 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/article', function () {
-    return view('article');
-});
+    return view('manage.article');
+})->name('article');
 
 Route::get('/mypage', function () {
-    return view('My page');
-});
+    return view('manage.mypage');
+})->name('mypage');
 
 Route::get('/mentees', function () {
-    return view('Mentees');
-});
+    return view('manage.mentees');
+})->name('mentees');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
