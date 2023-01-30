@@ -16,7 +16,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $employees = User::getAllOrderByCreated_at();
+        $employees = User::getAllOrderByCreated_at(); //employeeにはuserテーブルの情報（emailや名前）が入っている
         return view('permission.index',compact('employees'));
     }
 
@@ -54,12 +54,7 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $employee = User::find($id);
-        $employeeId = $employee->id;
-        return view('permission.show') ->with([
-            "employee" => $employee,
-            "employeeId" => $employeeId,
-       ]);
+        //
     }
 
     /**
@@ -70,7 +65,10 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = User::find($id);
+        $employeeId = $employee->id;
+        return view('permission.edit',compact('employee','employeeId'));
+
     }
 
     /**
@@ -82,7 +80,18 @@ class PermissionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'deploy' => 'required',
+            'status' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()
+            ->route('tweet.edit', $id)
+            ->withInput()
+            ->withErrors($validator);
+        }
+        $result = Permission::find($id)->update($request->all());
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -94,5 +103,13 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createNew($id)
+    {
+        $employee = User::find($id);
+        $employeeId = $employee->id;
+        return view('permission.create',compact('employee','employeeId'));
+
     }
 }

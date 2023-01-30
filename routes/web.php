@@ -20,6 +20,8 @@ Route::resource('manage', EvaluationController::class);
 
 Route::resource('permission', PermissionController::class);
 
+Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
+
 Route::get('/', function () {
     return view('welcome');
 });
