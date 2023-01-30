@@ -21,12 +21,36 @@
               @foreach ($employees as $employee)
               <tr class="hover:bg-grey-lighter">
                 <td class="py-4 px-6 border-b border-grey-light">
-                <a href="{{ route('permission.show',$employee->id) }}">
                   <h3 class="text-left font-bold text-lg text-grey-dark">{{$employee->id}}</h3>
-                  <h3 class="text-right font-bold text-lg text-grey-dark">{{$employee->name}}</h3>
+                  <h3 class="text-left font-bold text-lg text-grey-dark">{{$employee->name}}</h3>
+                  @if ($employee->permission != null)
+                  <h3 class="text-center font-bold text-lg text-grey-dark">所属：{{$employee->permission->deploy}}</h3>
+                  <h3 class="text-right font-bold text-lg text-grey-dark">ステータス：{{$employee->permission->status}}</h3>
                   <div class="flex">
+                    <form action="{{ route('permission.edit',$employee->id) }}" method="GET" class="text-left">
+                      @csrf
+                      <button type="submit" class="mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-white py-1 px-2 focus:outline-none focus:shadow-outline">
+                        <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="black">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+                    </form>
                   </div>
-                </a>
+                  @else
+                  <h3 class="text-center font-bold text-lg text-grey-dark">所属：未定</h3>
+                  <h3 class="text-right font-bold text-lg text-grey-dark"> ステータス：未定</h3>
+                  <div class="flex">
+                    <form action="{{ route('permission.createNew',$employee->id) }}" method="GET" class="text-left">
+                      @csrf
+                      <button type="submit" class="mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-white py-1 px-2 focus:outline-none focus:shadow-outline">
+                        <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="black">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                      </button>
+                    </form>
+                  </div>
+                  @endif
+
                 </td>
               </tr>
               @endforeach

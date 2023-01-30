@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function permission()
     {
-        return this->hasOne('App\Permission');
+        return $this->hasOne(Permission::class);
     }
 }
