@@ -25,7 +25,8 @@
               </p>
             </div>
             @include('common.errors')
-            <form class="mb-6" action="{{ route('permission.update',$employee->id) }}" method="PUT">
+            <form class="mb-6" action="{{ route('permission.update',$employee->permission->user_id) }}" method="POST">
+                @method('put')
                 @csrf
                 <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="user_id"></label>
                     <input type="hidden" id="user_id "name="user_id" value=<?php echo $employeeId;?>>

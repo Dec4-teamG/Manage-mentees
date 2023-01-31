@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Models\User;
 use App\Models\Permission;
+use Auth;
 
 class PermissionController extends Controller
 {
@@ -78,21 +79,16 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
-        $validator = Validator::make($request->all(), [
-            'deploy' => 'required',
-            'status' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()
-            ->route('tweet.edit', $id)
-            ->withInput()
-            ->withErrors($validator);
-        }
-        $result = Permission::find($id)->update($request->all());
+       //dd($request->deploy);  ok
+       //dd($request->status); ok
+       //dd($user_id);  ok
+        $result = Permission::find($user_id)->update(['deploy' => $request->deploy, 'status' => $request->status]);
         return redirect()->route('permission.index');
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -110,6 +106,5 @@ class PermissionController extends Controller
         $employee = User::find($id);
         $employeeId = $employee->id;
         return view('permission.create',compact('employee','employeeId'));
-
     }
 }
