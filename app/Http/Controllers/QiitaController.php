@@ -15,19 +15,25 @@ class QiitaController extends Controller
     public function index()
     {
         $client = new Client;
-        $token = '763829c99de9e3d1e56271ea73d55b7707cbbbe9';
-        $result = $client->request('GET', 'https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=10', [
+        $token = '01be66738a3c21afff603341d054b91358e3b851';
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=10', [
             'headers' => [
             'Authorization' => 'Bearer '.$token,
             'Accept' => 'application/json',
             ],
         ]);
-        $response_body = (string) $result->getBody();
+        $response_body =  $result->getBody();
         $decode_res = json_decode($response_body);
 
-        // foreach ($decode_res as $res_data) {
-        //     $url = $res_data->url;  //urlの取得例
-        // }
+        return $decode_res;
+        
+
+        foreach ($decode_res as $res_data) {
+            $url = $res_data->url;  //urlの取得例
+            return $url;
+        }
+
+
     }
 
     /**

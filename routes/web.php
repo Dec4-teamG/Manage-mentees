@@ -20,10 +20,13 @@ use App\Http\Controllers\QiitaController;
 Route::resource('manage', EvaluationController::class);
 
 Route::resource('permission', PermissionController::class);
+Route::resource('qiita', QiitaController::class);
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/article/index', [QiitaController::class, 'index'])->name('article.index')
 
 Route::get('/dashboard', function () {
     return view('dashboard');
