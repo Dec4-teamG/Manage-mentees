@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Models\User;
 use App\Models\Permission;
 use Auth;
+use Gate;
 
 class PermissionController extends Controller
 {
@@ -17,7 +19,12 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $employees = User::getAllOrderByCreated_at(); //employeeにはuserテーブルの情報（emailや名前）が入っている
+        if(Gate::allows('manager_only')){
+            $employees = User::getAllOrderByCreated_at(); //employeeにはuserテーブルの情報（emailや名前）が入っている
+        }
+        else{
+            dd('管理者のみユーザーの権限一覧を閲覧できます');
+        }
         return view('permission.index',compact('employees'));
     }
 
@@ -84,7 +91,13 @@ class PermissionController extends Controller
        //dd($request->deploy);  ok
        //dd($request->status); ok
        //dd($user_id);  ok
-        $result = Permission::find($user_id)->update(['deploy' => $request->deploy, 'status' => $request->status]);
+        $newPermission = [
+            'deploy' => $request->deploy,
+            'status' => $request->status,
+        ];
+        DB::table('permissions')
+             ->where('user_id', $request->user_id)
+             ->update($newPermission);
         return redirect()->route('permission.index');
     }
 
