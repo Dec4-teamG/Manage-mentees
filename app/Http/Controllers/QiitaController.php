@@ -24,15 +24,13 @@ class QiitaController extends Controller
         ]);
         $response_body =  $result->getBody();
         $decode_res = json_decode($response_body);
+        $qiita = $decode_res; 
+        return view('manage.article',compact('qiita'));
 
-        return $decode_res;
-        
-
-        foreach ($decode_res as $res_data) {
-            $url = $res_data->url;  //urlの取得例
-            return $url;
-        }
-
+        // foreach ($decode_res as $res_data) {
+        //     $url = $res_data->url;  //urlの取得例
+        //     return $url;
+        // }
 
     }
 
@@ -41,32 +39,31 @@ class QiitaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show($id)
+    // {
+    //     //
+    // }
 
 }
