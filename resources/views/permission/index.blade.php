@@ -23,9 +23,9 @@
                 <td class="py-4 px-6 border-b border-grey-light">
                   <h3 class="text-left font-bold text-lg text-grey-dark">{{$employee->id}}</h3>
                   <h3 class="text-left font-bold text-lg text-grey-dark">{{$employee->name}}</h3>
-                  @if ($employee->permission != null)
-                  <h3 class="text-center font-bold text-lg text-grey-dark">所属：{{$employee->permission->deploy}}</h3>
-                  <h3 class="text-right font-bold text-lg text-grey-dark">ステータス：{{$employee->permission->status}}</h3>
+                  @if ($employee->employee != null)
+                  <h3 class="text-center font-bold text-lg text-grey-dark">所属：{{$employee->employee->department}}</h3>
+                  <h3 class="text-right font-bold text-lg text-grey-dark">ステータス：{{$employee->employee->department}}</h3>
                   <div class="flex">
                     <form action="{{ route('permission.edit',$employee->id) }}" method="GET" class="text-left">
                       @csrf
@@ -50,7 +50,6 @@
                     </form>
                   </div>
                   @endif
-
                 </td>
               </tr>
               @endforeach
