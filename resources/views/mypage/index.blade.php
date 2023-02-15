@@ -12,36 +12,40 @@
     <div class="py-6">
         <div class="sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Name") }}:
-                </div>
+                <h3 class="text-left p-6 text-gray-900">Name</h3>
+                <h3 class="text-center p-6 text-gray-900"><?php echo $employeeName;?></h3>
             </div>
         </div>
     </div>
     <div class="py-6">
         <div class="sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Department") }}:
-                </div>
+                <h3 class="text-left p-6 text-gray-900">Department</h3>
+                <h3 class="text-center p-6 text-gray-900"><?php echo $employeeDepartment;?></h3>
             </div>
         </div>
     </div>
     <div class="py-6">
         <div class="sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Profile") }}
-                </div>
+                <h3 class="text-left p-6 text-gray-900">Profile</h3>
+                @if ($employee->employee->profile != 'null')
+                <h3 class="text-left p-6 text-gray-900">{{$employee->employee->profile}}</h3>
+                @else
+                <h3 class="text-left p-6 text-gray-900"></h3>
+                @endif
             </div>
         </div>
     </div>
     <div class="py-6">
         <div class="sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Github") }}
-                </div>
+                <h3 class="text-left p-6 text-gray-900">Github</h3>
+                @if ($employee->employee->github != 'null')
+                <h3 class="text-left p-6 text-gray-900">{{$employee->employee->github}}</h3>
+                @else
+                <h3 class="text-left p-6 text-gray-900"></h3>
+                @endif
             </div>
         </div>
     </div>
