@@ -48,10 +48,7 @@ Route::get('/mypage', function () {
     return view('manage.mypage');
 })->name('mypage');
 
-Route::get('/mentees', function () {
-    return view('manage.mentees');
-})->name('mentees');
-
+Route::resource('mentees', MenteesController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
