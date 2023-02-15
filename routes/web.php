@@ -50,8 +50,8 @@ Route::get('/mypage', function () {
 })->name('mypage');
 
 
-Route::resource('mentees', MenteesController::class);
 
+Route::resource('mentees', MenteesController::class);
 
 
 Route::middleware('auth')->group(function () {
