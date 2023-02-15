@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Permission;
+use App\Models\Employee;
 use App\Models\User;
 
 class MenteesController extends Controller
@@ -15,8 +15,8 @@ class MenteesController extends Controller
      */
     public function index()
     {
-        $employees = Permission::query()  
-        ->where('status',2)
+        $employees = Employee::query()  
+        ->where('status',mentee)
         ->pluck('user_id')
         ->all();   //statusがmenteeになっている人のidリストを作成
         //ddd($employees);
