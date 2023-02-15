@@ -7,6 +7,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QiitaController;
 use App\Http\Controllers\MenteesController;
+use App\Http\Controllers\MypageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,11 +46,7 @@ Route::get('/dashboard', function () {
 //     return view('manage.article');
 // })->name('article');
 
-Route::get('/mypage', function () {
-    return view('manage.mypage');
-})->name('mypage');
-
-
+Route::resource('mypage', MypageController::class);
 
 Route::resource('mentees', MenteesController::class);
 
