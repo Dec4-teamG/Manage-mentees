@@ -16,7 +16,7 @@ class MenteesController extends Controller
     public function index()
     {
         $employees = Employee::query()  
-        ->where('status',mentee)
+        ->where('status','mentee')
         ->pluck('user_id')
         ->all();   //statusがmenteeになっている人のidリストを作成
         //ddd($employees);
