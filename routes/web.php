@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\QiitaController;
 
 /*
@@ -20,6 +21,11 @@ use App\Http\Controllers\QiitaController;
 Route::resource('manage', EvaluationController::class);
 
 Route::resource('permission', PermissionController::class);
+
+Route::resource('user', UserController::class);
+
+
+
 // Route::resource('qiita', QiitaController::class);
 
 Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
@@ -46,10 +52,14 @@ Route::get('/mentees', function () {
     return view('manage.mentees');
 })->name('mentees');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
+
 
 require __DIR__.'/auth.php';

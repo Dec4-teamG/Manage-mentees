@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Models\User;
-use App\Models\Permission;
+use App\Models\Employee;
 use Auth;
 use Gate;
 
@@ -19,12 +19,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        if(Gate::allows('manager_only')){
-            $employees = User::getAllOrderByCreated_at(); //employeeにはuserテーブルの情報（emailや名前）が入っている
-        }
-        else{
-            dd('管理者のみユーザーの権限一覧を閲覧できます');
-        }
+        
+        $employees = User::getAllOrderByCreated_at(); //employeeにはuserテーブルの情報（emailや名前）が入っている
         return view('permission.index',compact('employees'));
     }
 
@@ -48,7 +44,17 @@ class PermissionController extends Controller
     {
         // create()は最初から用意されている関数
         // 戻り値は挿入されたレコードの情報
-        $result = Permission::create($request->all());
+        //dd($request->user_id); ok
+        $permission = [
+            'user_id' => $request->user_id,
+            'department' => $request->department,
+            'status' => $request->status,
+            'profile' => $request->profile,
+            'github' => $request->github,
+            'image' => $request->image
+        ];
+        DB::table('employees')
+            ->insert($permission);
         // ルーティング「todo.index」にリクエスト送信（一覧ページに移動）
         return redirect()->route('permission.index');
 
@@ -75,7 +81,9 @@ class PermissionController extends Controller
     {
         $employee = User::find($id);
         $employeeId = $employee->id;
-        return view('permission.edit',compact('employee','employeeId'));
+        $employeeDepartment = $employee->employee->department;
+        $employeeStatus = $employee->employee->status;
+        return view('permission.edit',compact('employee','employeeId','employeeDepartment','employeeStatus'));
 
     }
 
@@ -92,10 +100,10 @@ class PermissionController extends Controller
        //dd($request->status); ok
        //dd($user_id);  ok
         $newPermission = [
-            'deploy' => $request->deploy,
+            'department' => $request->department,
             'status' => $request->status,
         ];
-        DB::table('permissions')
+        DB::table('employees')
              ->where('user_id', $request->user_id)
              ->update($newPermission);
         return redirect()->route('permission.index');

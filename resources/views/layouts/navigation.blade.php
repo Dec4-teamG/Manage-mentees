@@ -41,6 +41,12 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('user.create')" :active="request()->routeIs('user.create')">
+                        {{ __('Register') }}
+                    </x-nav-link>
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -114,6 +120,14 @@
                 {{ __('Mentees') }}
             </x-responsive-nav-link>
         </div>
+
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+            <x-nav-link :href="route('user.create')" :active="request()->routeIs('user.create')">
+                {{ __('Register') }}
+            </x-nav-link>
+        </div>
+
+
 
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
             <x-nav-link :href="route('permission.index')" :active="request()->routeIs('permission.index')">
