@@ -5,13 +5,29 @@
         </h2>
     </x-slot>
 
-    <!-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+    <div class="py-12">
+    <div class="max-w-7xl mx-auto sm:w-10/12 md:w-8/10 lg:w-8/12">
+      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="p-6 bg-white border-b border-gray-200">
+          <table class="text-center w-full border-collapse">
+            <thead>
+              <tr>
+                <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">mentees</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($mentees as $mentee)
+              <tr class="hover:bg-grey-lighter">
+                <td class="py-4 px-6 border-b border-grey-light">
+                  <h3 class="text-left font-bold text-lg text-grey-dark">{{$mentee->id}}</h3>
+                  <h3 class="text-left font-bold text-lg text-grey-dark">{{$mentee->name}}</h3>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
-    </div> -->
+      </div>
+    </div>
+  </div>
 </x-app-layout>
