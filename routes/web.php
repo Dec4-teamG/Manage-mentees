@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\QiitaController;
+use App\Http\Controllers\MenteesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,9 +43,9 @@ Route::get('/mypage', function () {
     return view('manage.mypage');
 })->name('mypage');
 
-Route::get('/mentees', function () {
-    return view('manage.mentees');
-})->name('mentees');
+
+Route::resource('mentees', MenteesController::class);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
