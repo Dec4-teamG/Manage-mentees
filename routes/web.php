@@ -22,43 +22,24 @@ use App\Http\Controllers\ArticleSearchController;
 */
 
 Route::resource('manage', EvaluationController::class);
-
 Route::resource('permission', PermissionController::class);
-
-
 Route::resource('user', UserController::class);
+Route::resource('mypage', MypageController::class);
+Route::resource('mentees', MenteesController::class);
 
 Route::get('/article', [ArticleSearchController::class, 'create'])->name('article');
 Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
 
-// Route::resource('qiita', QiitaController::class);
-
 Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
+Route::get('/article', [QiitaController::class, 'index'])->name('article');
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/article', [QiitaController::class, 'index'])->name('article');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::get('/article', function () {
-//     return view('manage.article');
-// })->name('article');
-
-Route::middleware('auth')->group(function () {
-    Route::resource('mypage', MypageController::class);
-    Route::get('mypage/{mypage}/editProfile', [MypageController::class, 'editProfile'])->name('mypage.editProfile');
-    Route::get('mypage/{mypage}/editGithub', [MypageController::class, 'editGithub'])->name('mypage.editGithub');
-    Route::patch('mypage/{mypage}/updateProfile', [MypageController::class, 'updateProfile'])->name('mypage.updateProfile');
-    Route::patch('mypage/{mypage}/updateGithub', [MypageController::class, 'updateGithub'])->name('mypage.updateGithub');
-});
-
-Route::resource('mentees', MenteesController::class);
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
