@@ -8,7 +8,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QiitaController;
 use App\Http\Controllers\MenteesController;
 use App\Http\Controllers\MypageController;
-use App\Http\Controllers\ArticleSearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +27,7 @@ Route::resource('permission', PermissionController::class);
 
 Route::resource('user', UserController::class);
 
-Route::get('/article', [ArticleSearchController::class, 'create'])->name('article');
-Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
+
 
 // Route::resource('qiita', QiitaController::class);
 
