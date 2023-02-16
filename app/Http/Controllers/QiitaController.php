@@ -16,7 +16,7 @@ class QiitaController extends Controller
     {
         $client = new Client;
         $token = '01be66738a3c21afff603341d054b91358e3b851';
-        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=10', [
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=10&per_page=15', [
             'headers' => [
             'Authorization' => 'Bearer '.$token,
             'Accept' => 'application/json',
@@ -24,46 +24,49 @@ class QiitaController extends Controller
         ]);
         $response_body =  $result->getBody();
         $decode_res = json_decode($response_body);
-        $qiita = $decode_res; 
+        $qiita = $decode_res;
+        $list=[];
+        for ($i = 0, $size = count($qiita); $i < $size; ++$i) {
+            
+            $list = array_merge($list, array($qiita[$i]->title => $qiita[$i]->url));
+        }
+ 
         return view('manage.article',compact('qiita'));
-
-        // foreach ($decode_res as $res_data) {
-        //     $url = $res_data->url;  //urlの取得例
-        //     return $url;
-        // }
 
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create()
-    // {
-    //     //
-    // }
+    public function create()
+    {
+        //
+    }
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
 
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
 
 }
+

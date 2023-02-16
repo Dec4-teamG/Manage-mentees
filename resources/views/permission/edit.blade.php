@@ -1,9 +1,9 @@
-<!-- resources/views/permission/show.blade.php -->
+<!-- resources/views/permission/edit.blade.php -->
 
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Show Permission Detail') }}
+      {{ __('Edit Permission Detail') }}
     </h2>
   </x-slot>
 
@@ -25,14 +25,17 @@
               </p>
             </div>
             @include('common.errors')
-            <form class="mb-6" action="{{ route('permission.store') }}" method="POST">
+            <form class="mb-6" action="{{ route('permission.update',$employee->employee->user_id) }}" method="POST">
+                @method('put')
                 @csrf
-                <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="user_id"></label>
-                    <input type="hidden" id="user_id "name="user_id" value=<?php echo $employeeId;?>>
+                <input type="hidden" name="user_id" value=<?php echo $employeeId;?>>
+                <input type="hidden" name="profile" value="null">
+                <input type="hidden" name="github" value="null">
+                <input type="hidden" name="image" value="null">
                 <div class="flex flex-col mb-4">
-                <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="deploy">deploy</label>
-                    <select class="form-control" id="deploy" name="deploy">
-                        <option value="nochoice" selected>選択してください</option>
+                <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="department">department</label>
+                    <select class="form-control" id="department" name="department">
+                        <option value=<?php echo $employeeDepartment;?> selected><?php echo $employeeDepartment;?></option>
                         <option value="team1">team1</option>
                         <option value="team2">team2</option>
                     </select>
@@ -40,15 +43,15 @@
                 <div class="flex flex-col mb-4">
                 <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="status">status</label>
                     <select class="form-control" id="status" name="status">
-                        <option value="nochoice" selected>選択してください</option>
-                        <option value="0">manager</option>
-                        <option value="1">mentor</option>
-                        <option value="2">mentee</option>
-                        <option value="3">others</option>
-                        </select>          
+                        <option value=<?php echo $employeeStatus;?> selected><?php echo $employeeStatus;?></option>
+                        <option value="manager">manager</option>
+                        <option value="mentor">mentor</option>
+                        <option value="mentee">mentee</option>
+                        <option value="other">other</option>
+                    </select>          
                 </div>
                 <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
-                Create
+                Update
                 </button>
             </form>
           </div>
@@ -57,4 +60,3 @@
     </div>
   </div>
 </x-app-layout>
-
