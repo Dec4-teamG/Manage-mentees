@@ -42,30 +42,25 @@
                             <h3 class="text-left p-6 text-gray-900"></h3>
                             @endif
                         </div>
-                        <form action="{{ route('mypage.editProfile',$employee->id) }}" method="GET" class="text-right">
-                            @csrf
-                            <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
-                                更新
-                            </button>
-                        </form>       
                     </div>
                 </div>
             </div>
             <div class="py-6">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="flex flex-row">
-                            <h3 class="text-left p-6 text-gray-900">Github</h3>
-                            @if ($employee->employee->github != 'null')
-                            <h3 class="text-left p-6 text-gray-900">{{$employee->employee->github}}</h3>
-                            @else
-                            <h3 class="text-left p-6 text-gray-900"></h3>
-                            @endif
-                        </div>
-                        <form action="{{ route('mypage.editGithub',$employee->id) }}" method="GET" class="text-right">
-                            @csrf
-                            <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
-                                更新
+                        <form action="{{ route('mypage.updateGithub',$employee->employee->id) }}" method="post">
+                        @method('patch')
+                        @csrf
+                            <div class="flex flex-row">
+                                <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="github">github</label>
+                                @if ($employee->employee->github != 'null')
+                                <input class="border py-2 px-3 text-grey-darkest" type="text" name="github" id="github" value="{{$employee->employee->github}}">
+                                @else
+                                <input class="border py-2 px-3 text-grey-darkest" type="text" name="github" id="github">
+                                @endif
+                            </div>
+                            <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
+                            Update
                             </button>
                         </form>       
                     </div>

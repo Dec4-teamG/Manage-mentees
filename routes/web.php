@@ -47,7 +47,13 @@ Route::get('/dashboard', function () {
 //     return view('manage.article');
 // })->name('article');
 
-Route::resource('mypage', MypageController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('mypage', MypageController::class);
+    Route::get('mypage/{mypage}/editProfile', [MypageController::class, 'editProfile'])->name('mypage.editProfile');
+    Route::get('mypage/{mypage}/editGithub', [MypageController::class, 'editGithub'])->name('mypage.editGithub');
+    Route::patch('mypage/{mypage}/updateProfile', [MypageController::class, 'updateProfile'])->name('mypage.updateProfile');
+    Route::patch('mypage/{mypage}/updateGithub', [MypageController::class, 'updateGithub'])->name('mypage.updateGithub');
+});
 
 Route::resource('mentees', MenteesController::class);
 
