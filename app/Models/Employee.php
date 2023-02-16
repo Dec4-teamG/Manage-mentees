@@ -16,4 +16,10 @@ class Employee extends Model
         'github',
         'image'
     ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
+    }
+
 }
