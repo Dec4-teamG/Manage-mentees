@@ -19,7 +19,7 @@ class MenteesController extends Controller
         //->pluck('user_id')
         //->all();   //statusがmenteeになっている人のidリストを作成
         $employees = Employee::find(1);
-        ddd($employees->user());
+        //ddd($employees->user());
 
         $mentees = User::query()
         ->WhereIn('id', $employees)
