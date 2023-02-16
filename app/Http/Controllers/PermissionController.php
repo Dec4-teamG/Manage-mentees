@@ -45,6 +45,7 @@ class PermissionController extends Controller
         // create()は最初から用意されている関数
         // 戻り値は挿入されたレコードの情報
         //dd($request->user_id); ok
+        /*
         $permission = [
             'user_id' => $request->user_id,
             'department' => $request->department,
@@ -57,7 +58,7 @@ class PermissionController extends Controller
             ->insert($permission);
         // ルーティング「todo.index」にリクエスト送信（一覧ページに移動）
         return redirect()->route('permission.index');
-
+        */
     }
 
     /**
@@ -124,8 +125,10 @@ class PermissionController extends Controller
 
     public function createNew($id)
     {
+        /*
         $employee = User::find($id);
         $employeeId = $employee->id;
         return view('permission.create',compact('employee','employeeId'));
+        */
     }
 }
