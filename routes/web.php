@@ -24,6 +24,7 @@ Route::resource('manage', EvaluationController::class);
 
 Route::resource('permission', PermissionController::class);
 
+
 Route::resource('user', UserController::class);
 
 

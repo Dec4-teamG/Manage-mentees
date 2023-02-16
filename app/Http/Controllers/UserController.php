@@ -38,6 +38,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        /*dd($request);
         $user = [
             'name' => $request->name,
             'email' => $request->email,
@@ -45,9 +46,24 @@ class UserController extends Controller
         ];
         DB::table('users')
             ->insert($user);
-
+        */
+        $result = User::create($request->all());
+        //dd($result->id); ok
+        $employee = [
+            'created_at'=>$result->created_at,
+            'updated_at'=>$result->updated_at,
+            'user_id' => $result->id,
+            'department' => 'null',
+            'status' => 'null',
+            'profile' => 'null',
+            'github' => 'null',
+            'image' => 'null',
+        ];
+        DB::table('employees')
+            ->insert($employee);
         return redirect()->route('permission.index');
     }
+
 
     /**
      * Display the specified resource.
