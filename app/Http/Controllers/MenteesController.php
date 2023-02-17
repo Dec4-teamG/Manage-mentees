@@ -19,7 +19,7 @@ class MenteesController extends Controller
         //->pluck('user_id')
         //->all();   //statusがmenteeになっている人のidリストを作成
         $employees = Employee::find(1);
-        ddd($employees->user());
+        //ddd($employees->user());
 
         $mentees = User::query()
         ->WhereIn('id', $employees)
@@ -93,5 +93,11 @@ class MenteesController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function menteemypage($id)
+    {
+        $employee = User::find($id);
+        // ddd($employee);
+        return view('mypage.index', compact('employee'));
     }
 }

@@ -3,31 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Permission;
-use App\Models\User;
+use App\Http\Controllers\QiitaController as qc;
 
-class MenteesController extends Controller
+class ArticleSearchController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Permission::query()  
-        ->where('status',2)
-        ->pluck('user_id')
-        ->all();   //statusがmenteeになっている人のidリストを作成
-        //ddd($employees);
-
-        $mentees = User::query()
-        ->WhereIn('id', $employees)
-        ->get();
-        //ddd($mentees);
-        return view('manage.mentees', compact('mentees'));
-
+        // $keyword = trim($request->keyword);
+        // $users  = User::where('name', 'like', "%{$keyword}%")->pluck('id')->all();
+        // $arts = Tweet::query()
+        //     ->where('tweet', 'like', "%{$keyword}%")
+        //     ->orWhere('description', 'like', "%{$keyword}%")
+        //     ->orWhereIn('user_id', $users)
+        //     ->get();
+        // return view('manage.article', compact('arts'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -36,7 +32,7 @@ class MenteesController extends Controller
      */
     public function create()
     {
-        //
+        return view('manage.article');
     }
 
     /**
