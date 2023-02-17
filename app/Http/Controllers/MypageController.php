@@ -79,6 +79,12 @@ class MypageController extends Controller
         return view('mypage.editGithub',compact('employee'));
     }
 
+    public function editImage($id)
+    {
+        $employee = User::find($id);
+        return view('mypage.editImage',compact('employee'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -98,6 +104,12 @@ class MypageController extends Controller
     }
 
     public function updateGithub(Request $request, $id)
+    {
+        $result = Employee::find($id)->update($request->all());
+        return redirect()->route('mypage.index');
+    }
+
+    public function updateImage(Request $request, $id)
     {
         $result = Employee::find($id)->update($request->all());
         return redirect()->route('mypage.index');

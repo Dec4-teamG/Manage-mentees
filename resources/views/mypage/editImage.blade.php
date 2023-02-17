@@ -6,14 +6,13 @@
     </x-slot>
     <div class="flex flex-row">
         <div class="py-6 flex-1">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <img src="https://tori-dori.com/wp/wp-content/uploads/BP17-063036D.jpg" width="700" height="500" class="rounded-full">
-            </div>
-            <form action="{{ route('mypage.editImage',$employee->id) }}" method="GET" class="text-right">
+            <form action="{{ route('mypage.updateImage',$employee->employee->id) }}" method="POST" class="text-right">
+                @method('patch')
                 @csrf
-                    <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
-                        更新
-                    </button>
+                <input type="file" name="image" enctype="multipart/form-data" value="https://2.bp.blogspot.com/-WKhyux3zjI8/XASwaSwkEGI/AAAAAAABQZ4/5csR5XWpXNoxbA-cvkPm-SdeSeab1lkNACLcBGAs/s800/computer_programming_woman.png">
+                <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
+                    Update
+                </button>
             </form>       
         </div>
         <div class="flex-1">
@@ -48,12 +47,6 @@
                             <h3 class="text-left p-6 text-gray-900"></h3>
                             @endif
                         </div>
-                        <form action="{{ route('mypage.editProfile',$employee->id) }}" method="GET" class="text-right">
-                            @csrf
-                            <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
-                                更新
-                            </button>
-                        </form>       
                     </div>
                 </div>
             </div>
@@ -68,12 +61,6 @@
                             <h3 class="text-left p-6 text-gray-900"></h3>
                             @endif
                         </div>
-                        <form action="{{ route('mypage.editGithub',$employee->id) }}" method="GET" class="text-right">
-                            @csrf
-                            <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
-                                更新
-                            </button>
-                        </form>       
                     </div>
                 </div>
             </div>
