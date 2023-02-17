@@ -19,8 +19,10 @@
               @foreach ($mentees as $mentee)
               <tr class="hover:bg-grey-lighter">
                 <td class="py-4 px-6 border-b border-grey-light">
+                  <a href="{{route('mentees.menteemypage', $mentee ->id)}}">
                   <h3 class="text-left font-bold text-lg text-grey-dark">{{$mentee->id}}</h3>
                   <h3 class="text-left font-bold text-lg text-grey-dark">{{$mentee->name}}</h3>
+                  </a>
                 </td>
               </tr>
               @endforeach

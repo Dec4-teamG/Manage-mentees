@@ -29,6 +29,7 @@ Route::resource('mentees', MenteesController::class);
 Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
 Route::get('/article', [QiitaController::class, 'index'])->name('article');
 Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
+Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
 
 Route::get('/', function () {
     return view('welcome');
