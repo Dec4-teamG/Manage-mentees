@@ -9,6 +9,7 @@ use App\Http\Controllers\QiitaController;
 use App\Http\Controllers\MenteesController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ArticleSearchController;
+use App\Http\Controllers\FeedController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ Route::resource('mentees', MenteesController::class);
 
 Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
 Route::get('/article', [QiitaController::class, 'index'])->name('article');
+Route::get('/techblog', [FeedController::class, 'feed'])->name('techblog');
 Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
 Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
 
@@ -56,6 +58,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 
 

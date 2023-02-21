@@ -3,11 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Employee;
-use App\Models\User;
+use Vedmant\FeedReader\Facades\FeedReader;
 
-class MenteesController extends Controller
+class FeedController extends Controller
 {
+    public function feed()
+    {
+        $feed = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
+
+        if ( $feed->error() ) {
+            echo $feed->error();
+        }
+
+        // $i = 0;
+        // foreach ($feed->get_items() as $item) {
+        //     $techblog[$i]['title'] = mb_strimwidth(trim($item->get_title()));
+        //     $techblog[$i]['permalink'] = trim($item->get_permalink());
+        //     $techblog[$i]['link'] = trim($item->get_link());
+        //     $techblog[$i]['date'] = $item->get_date('Y-m-d H:i:s');
+        //     $techblog[$i]['content'] = mb_strimwidth(strip_tags(trim($item->get_content())));
+        //     $i++;
+        // }
+
+        // return view('manage.techblog',compact('techblog'));
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,18 +35,7 @@ class MenteesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::where('status','mentee')
-        ->pluck('user_id')
-        ->all();   //statusがmenteeになっている人のidリストを作成
-        // $employees = Employee::find(1);
-        //ddd($employees->user());
-
-        $mentees = User::query()
-        ->WhereIn('id', $employees)
-        ->get();
-        //ddd($mentees);
-        return view('manage.mentees', compact('mentees'));
-
+        //
     }
 
     /**
@@ -93,11 +102,5 @@ class MenteesController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function menteemypage($id)
-    {
-        $employee = User::find($id);
-        // ddd($employee);
-        return view('mypage.index', compact('employee'));
     }
 }
