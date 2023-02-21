@@ -29,10 +29,7 @@ Route::resource('mentees', MenteesController::class);
 Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
 Route::get('/article', [QiitaController::class, 'index'])->name('article');
 Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
-<<<<<<< HEAD
-=======
 Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
->>>>>>> d1658f9da31db40e0d48582b792d4d80d549a51d
 
 Route::get('/', function () {
     return view('welcome');
@@ -62,9 +59,5 @@ Route::middleware('auth')->group(function () {
 
 
 
-<<<<<<< HEAD
 require __DIR__.'/auth.php';
-=======
 
-require __DIR__.'/auth.php';
->>>>>>> d1658f9da31db40e0d48582b792d4d80d549a51d
