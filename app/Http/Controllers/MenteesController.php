@@ -15,10 +15,10 @@ class MenteesController extends Controller
      */
     public function index()
     {
-        //$employees = Employee::where('status','mentee');
-        //->pluck('user_id')
-        //->all();   //statusがmenteeになっている人のidリストを作成
-        $employees = Employee::find(1);
+        $employees = Employee::where('status','mentee')
+        ->pluck('user_id')
+        ->all();   //statusがmenteeになっている人のidリストを作成
+        // $employees = Employee::find(1);
         //ddd($employees->user());
 
         $mentees = User::query()
