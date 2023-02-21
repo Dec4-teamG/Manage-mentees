@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
-
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -47,20 +49,46 @@ class UserController extends Controller
         DB::table('users')
             ->insert($user);
         */
-        $result = User::create($request->all());
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user2 = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $user->password,
+            'remember_token' => Str::random(10), // 'token' => hash('sha256', $plainTextToken = Str::random(40)),
+            'email_verified_at' =>$user->created_at,
+        ];
+
+        DB::table('users')
+             ->where('id', $user->id)
+             ->update($user2);
+        
         //dd($result->id); ok
         $employee = [
-            'created_at'=>$result->created_at,
-            'updated_at'=>$result->updated_at,
-            'user_id' => $result->id,
+            'created_at'=>$user->created_at,
+            'updated_at'=>$user->updated_at,
+            'user_id' => $user->id,
             'department' => 'null',
             'status' => 'null',
             'profile' => 'null',
             'github' => 'null',
             'image' => 'null',
         ];
+
         DB::table('employees')
             ->insert($employee);
+        
+        event(new Registered($user));
         return redirect()->route('permission.index');
     }
 
