@@ -9,23 +9,25 @@ class FeedController extends Controller
 {
     public function feed()
     {
-        $feed = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
-
-        if ( $feed->error() ) {
-            echo $feed->error();
-        }
-
-        // $i = 0;
-        // foreach ($feed->get_items() as $item) {
-        //     $techblog[$i]['title'] = mb_strimwidth(trim($item->get_title()));
-        //     $techblog[$i]['permalink'] = trim($item->get_permalink());
-        //     $techblog[$i]['link'] = trim($item->get_link());
-        //     $techblog[$i]['date'] = $item->get_date('Y-m-d H:i:s');
-        //     $techblog[$i]['content'] = mb_strimwidth(strip_tags(trim($item->get_content())));
-        //     $i++;
-        // }
-
-        // return view('manage.techblog',compact('techblog'));
+        /** @var \SimplePie $f */
+        $f = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
+            $result = [
+                'title' => $f->get_title(),
+                'description' => $f->get_description(),
+                'permalink' => $f->get_permalink(),
+            ];
+            foreach ($f->get_items(0, $f->get_item_quantity()) as $item) {
+                $i['title'] = $item->get_title();
+                $i['description'] = $item->get_description();
+                $i['id'] = $item->get_id();
+                $i['content'] = $item->get_content();
+                $i['author'] = $item->get_author();
+                $i['date'] = $item->get_date();
+                $i['permalink'] = $item->get_permalink();
+                $result['items'][] = $i;
+            }
+            $techblog = $result['items'];        
+            return view('manage.techblog',compact('techblog'));
     }
     
     /**

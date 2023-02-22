@@ -23,8 +23,7 @@ class QiitaController extends Controller
             ],
         ]);
         $response_body =  $result->getBody();
-        $decode_res = json_decode($response_body);
-        $qiita = $decode_res;
+        $qiita = json_decode($response_body);
         $list=[];
         for ($i = 0, $size = count($qiita); $i < $size; ++$i) {
             
