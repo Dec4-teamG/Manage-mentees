@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
             'name' => 'guest', 
             'email' => 'example@example', 
             'email_verified_at'=>'2023-02-12 08:46:41', 
-            'password'=>Hash::make($plainTextToken = Str::random(10)),
+            'password'=>Hash::make($plainTextToken = 'password'),//'password'=>Hash::make($plainTextToken = Str::random(10)),
             'remember_token'=>Str::random(10), 
             'created_at'=>'2023-02-12 08:46:41', 
             'updated_at'=>'2023-02-12 08:46:41'];
