@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('TechArticle') }}
+            {{ __('Fusic TechBlog') }}
         </h2>
     </x-slot>
 
@@ -25,16 +25,15 @@
         </div>
     </div>    
 
-    <!-- @foreach ($techblog as $tb)
+    @foreach ($techblog as $tb)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-red-500">
-                        {{ __("Fusic TechBlog") }}
-                        <a href="{{$tb[$i]['link']}}" target="_blank" rel="noopener noreferrer" class="underline">{{ $tb[$i]['title'] }}</a>
+                        <a href="{{ $tb['permalink'] }}" target="_blank" rel="noopener noreferrer" class="underline">{{ $tb['title'] }}</a>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
-</x-app-layout> -->
+</x-app-layout>
