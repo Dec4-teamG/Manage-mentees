@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Employee;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class MypageController extends Controller
@@ -85,6 +86,12 @@ class MypageController extends Controller
         return view('mypage.editImage',compact('employee'));
     }
 
+    public function editPassword($id)
+    {
+        $employee = User::find($id);
+        return view('mypage.editPassword',compact('employee'));
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -115,6 +122,12 @@ class MypageController extends Controller
         return redirect()->route('mypage.index');
     }
 
+    public function updatePassword(Request $request, $id)
+    {
+        $password = Hash::make($request->password);
+        $result = User::find($id)->update(['password' => $password]);
+        return redirect()->route('mypage.index');
+    }
     /**
      * Remove the specified resource from storage.
      *

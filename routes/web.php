@@ -47,9 +47,11 @@ Route::middleware('auth')->group(function () {
     Route::get('mypage/{mypage}/editProfile', [MypageController::class, 'editProfile'])->name('mypage.editProfile');
     Route::get('mypage/{mypage}/editGithub', [MypageController::class, 'editGithub'])->name('mypage.editGithub');
     Route::get('mypage/{mypage}/editImage', [MypageController::class, 'editImage'])->name('mypage.editImage');
+    Route::get('mypage/{mypage}/editPassword', [MypageController::class, 'editPassword'])->name('mypage.editPassword');
     Route::patch('mypage/{mypage}/updateProfile', [MypageController::class, 'updateProfile'])->name('mypage.updateProfile');
     Route::patch('mypage/{mypage}/updateGithub', [MypageController::class, 'updateGithub'])->name('mypage.updateGithub');
     Route::patch('mypage/{mypage}/updateImage', [MypageController::class, 'updateImage'])->name('mypage.updateImage');
+    Route::patch('mypage/{mypage}/updatePassword', [MypageController::class, 'updatePassword'])->name('mypage.updatePassword');
 });
 
 
