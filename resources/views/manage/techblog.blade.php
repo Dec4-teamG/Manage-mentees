@@ -23,6 +23,23 @@
             </div>
         </div>
     </div>    
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between">
+            <div class="flex bg-red-300 overflow-hidden">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('article')" :active="request()->routeIs('article')">
+                        {{ __('Qiita') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('awsblog')" :active="request()->routeIs('awsblog')">
+                        {{ __('AWS blog') }}
+                    </x-nav-link>
+                </div>
+            </div>    
+        </div>
+    </div>
 
     @foreach ($techblog as $tb)
         <div class="py-12">

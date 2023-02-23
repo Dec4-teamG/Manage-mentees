@@ -15,7 +15,7 @@ class QiitaController extends Controller
     public function index()
     {
         $client = new Client;
-        // $token = '01be66738a3c21afff603341d054b91358e3b851';
+        $token = '01be66738a3c21afff603341d054b91358e3b851';
         $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=10&per_page=15', [
             'headers' => [
             'Authorization' => 'Bearer '.$token,

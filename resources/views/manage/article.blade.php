@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Article') }}
+            {{ __('Qiita') }}
         </h2>
     </x-slot>
 
@@ -13,7 +13,6 @@
                     <form class="mb-6" action="{{ route('article.search') }}" method="GET">
                         @csrf
                         <div class="flex flex-col mb-4">
-                            <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="keyword">Keyword</label>
                             <input class="border py-2 px-3 text-grey-darkest" type="text" name="keyword" id="keyword" value="{{ old('keyword') }}" placeholder="キーワードを入力してください">
                         </div>
                         <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
@@ -24,6 +23,23 @@
             </div>
         </div>
     </div>    
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between">
+            <div class="flex bg-red-300 overflow-hidden">
+                <div class="flex-auto hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('techblog')" :active="request()->routeIs('techblog')">
+                        {{ __('Fusic Techblog') }}
+                    </x-nav-link>
+                </div>
+                <div class="flex-auto hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('awsblog')" :active="request()->routeIs('awsblog')">
+                        {{ __('AWS blog') }}
+                    </x-nav-link>
+                </div>
+            </div>    
+        </div>
+    </div>
 
     @foreach ($qiita as $q)
         <div class="py-12">
