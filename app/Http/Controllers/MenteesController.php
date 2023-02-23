@@ -110,7 +110,16 @@ class MenteesController extends Controller
 
     public function search(Request $request)
     {
-        
+        $keyword = trim($request->keyword);
+        // ヒットしたユーザの id（配列）
+        $users  = User::where('name', 'like', "%{$keyword}%")
+        ->pluck('id')
+        ->all();
+        $mentees = Employee::query()
+            ->whereIn('user_id', $users)
+            ->get();
+        //ddd($employees);
+        // ddd($mentees);
+        return view('manage.mentees', compact('mentees'));
     }
-
 }
