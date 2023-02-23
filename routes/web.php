@@ -62,7 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/techblog', [FeedController::class, 'feed'])->name('techblog');
     Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
     Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
-
+    Route::get('/mentees/search',[MenteesController::class, 'show'])->name('mentees.search');
 });
 
 Route::resource('mentees', MenteesController::class)->middleware(['auth', 'verified']);
