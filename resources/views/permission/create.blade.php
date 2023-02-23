@@ -35,8 +35,9 @@
                 <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="department">department</label>
                     <select class="form-control" id="department" name="department">
                         <option value="nochoice" selected>選択してください</option>
-                        <option value="team1">team1</option>
-                        <option value="team2">team2</option>
+                        @foreach ($departments as $department)
+                        <option value=<?php echo $department;?>><?php echo $department;?></option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="flex flex-col mb-4">

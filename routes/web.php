@@ -9,6 +9,7 @@ use App\Http\Controllers\MenteesController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ArticleSearchController;
 use App\Http\Controllers\FeedController;
+use App\Http\Controllers\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('mypage/{mypage}/updatePassword', [MypageController::class, 'updatePassword'])->name('mypage.updatePassword');
     Route::resource('permission', PermissionController::class);
     Route::resource('user', UserController::class);
+    Route::resource('department', DepartmentController::class);
+    Route::get('department',[DepartmentController::class,'editNew'])->name('department.editNew');;
     Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
     Route::get('/article', [QiitaController::class, 'index'])->name('article');
     Route::get('/techblog', [FeedController::class, 'feed'])->name('techblog');

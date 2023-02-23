@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Validator;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Department;
 use Auth;
 use Gate;
 
@@ -84,7 +85,8 @@ class PermissionController extends Controller
         $employeeId = $employee->id;
         $employeeDepartment = $employee->employee->department;
         $employeeStatus = $employee->employee->status;
-        return view('permission.edit',compact('employee','employeeId','employeeDepartment','employeeStatus'));
+        $departments =Department::pluck('department')->all();
+        return view('permission.edit',compact('employee','employeeId','employeeDepartment','employeeStatus','departments'));
 
     }
 

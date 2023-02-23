@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Employee;
-use App\Models\User;
 use App\Models\Department;
 
-class MenteesController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,22 +14,7 @@ class MenteesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::where('status','mentee')
-        ->pluck('user_id')
-        ->all();   //statusがmenteeになっている人のidリストを作成
-        // $employees = Employee::find(1);
-        //ddd($employees->user());
-
-        $mentees = User::query()
-        ->WhereIn('id', $employees)
-        ->get();
-        //ddd($mentees);
-
-        $departments = Department::pluck('department')->all();
-
-
-        return view('manage.mentees', compact('mentees','departments'));
-
+        //
     }
 
     /**
@@ -41,7 +24,7 @@ class MenteesController extends Controller
      */
     public function create()
     {
-        //
+        return view('department.create');
     }
 
     /**
@@ -52,7 +35,8 @@ class MenteesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $result = Department::create($request->all());
+        return redirect()->route('permission.index');
     }
 
     /**
@@ -73,6 +57,11 @@ class MenteesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
+    {
+        //
+    }
+
+    public function editNew()
     {
         //
     }
@@ -99,18 +88,4 @@ class MenteesController extends Controller
     {
         //
     }
-
-
-    public function menteemypage($id)
-    {
-        $employee = User::find($id);
-        // ddd($employee);
-        return view('mypage.index', compact('employee'));
-    }
-
-    public function search(Request $request)
-    {
-        
-    }
-
 }

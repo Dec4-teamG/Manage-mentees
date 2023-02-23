@@ -24,10 +24,22 @@
                 {{$employee->name}}
               </p>
             </div>
-            @include('common.errors')
+              <form action="{{ route('department.create') }}" method="GET" class="text-right">
+              @csrf
+              <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
+                追加
+              </button>
+              </form>
+              <form action="{{ route('department.editNew') }}" method="GET" class="text-right">
+                @csrf
+                <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
+                  編集
+                </button>
+              </form>       
             <form class="mb-6" action="{{ route('permission.update',$employee->employee->user_id) }}" method="POST">
                 @method('put')
                 @csrf
+                @include('common.errors')
                 <input type="hidden" name="user_id" value=<?php echo $employeeId;?>>
                 <input type="hidden" name="profile" value="null">
                 <input type="hidden" name="github" value="null">
@@ -35,9 +47,10 @@
                 <div class="flex flex-col mb-4">
                 <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="department">department</label>
                     <select class="form-control" id="department" name="department">
-                        <option value=<?php echo $employeeDepartment;?> selected><?php echo $employeeDepartment;?></option>
-                        <option value="team1">team1</option>
-                        <option value="team2">team2</option>
+                        <option value="nochoice" selected>選択してください</option>
+                        @foreach ($departments as $department)
+                        <option value=<?php echo $department;?>><?php echo $department;?></option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="flex flex-col mb-4">
