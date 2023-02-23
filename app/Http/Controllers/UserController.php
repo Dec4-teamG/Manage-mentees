@@ -55,6 +55,14 @@ class UserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $emails = User::select('email')->get();
+
+        foreach ( $emails as $email ) {
+            if($request->email == $email){
+                return view('register.error');
+            };
+        };
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -62,12 +70,14 @@ class UserController extends Controller
         ]);
 
         $user2 = [
-            'name' => $request->name,
-            'email' => $request->email,
+            'name' => $user->name,
+            'email' => $user->email,
             'password' => $user->password,
             'remember_token' => Str::random(10), // 'token' => hash('sha256', $plainTextToken = Str::random(40)),
             'email_verified_at' =>$user->created_at,
         ];
+
+        $emails = User::select('email')->get();
 
         DB::table('users')
              ->where('id', $user->id)
