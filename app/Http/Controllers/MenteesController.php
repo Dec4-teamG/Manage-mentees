@@ -110,16 +110,23 @@ class MenteesController extends Controller
 
     public function search(Request $request)
     {
+        //空白削除
         $keyword = trim($request->keyword);
-        // ヒットしたユーザの id（配列）
+        // ヒットしたユーザの id を配列で取得
         $users  = User::where('name', 'like', "%{$keyword}%")
         ->pluck('id')
         ->all();
+        // Employee テーブルの user_id カラムで上記配列に含まれているものを抽出
         $mentees = Employee::query()
             ->whereIn('user_id', $users)
             ->get();
         //ddd($employees);
         // ddd($mentees);
-        return view('manage.mentees', compact('mentees'));
+
+        $departments = Department::query()
+            ->where('department', $mentees)
+            ->get();
+
+        return view('manage.mentees', compact('mentees','departments'));
     }
 }
