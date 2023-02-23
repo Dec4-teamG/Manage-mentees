@@ -37,7 +37,25 @@ class FeedController extends Controller
      */
     public function index()
     {
-        //
+        /** @var \SimplePie $f */
+        $f = FeedReader::read('https://aws.amazon.com/jp/blogs/architecture/feed/');
+            $result = [
+                'title' => $f->get_title(),
+                'description' => $f->get_description(),
+                'permalink' => $f->get_permalink(),
+            ];
+            foreach ($f->get_items(0, $f->get_item_quantity()) as $item) {
+                $i['title'] = $item->get_title();
+                $i['description'] = $item->get_description();
+                $i['id'] = $item->get_id();
+                // $i['content'] = $item->get_content();
+                // $i['author'] = $item->get_author();
+                $i['date'] = $item->get_date();
+                $i['permalink'] = $item->get_permalink();
+                $result['items'][] = $i;
+            }
+            $awsblog = $result['items'];      
+            return view('manage.awsblog',compact('awsblog'));
     }
 
     /**
