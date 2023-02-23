@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QiitaController;
@@ -10,6 +9,7 @@ use App\Http\Controllers\MenteesController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ArticleSearchController;
 use App\Http\Controllers\FeedController;
+use App\Http\Controllers\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,15 +54,16 @@ Route::middleware('auth')->group(function () {
     Route::patch('mypage/{mypage}/updateGithub', [MypageController::class, 'updateGithub'])->name('mypage.updateGithub');
     Route::patch('mypage/{mypage}/updateImage', [MypageController::class, 'updateImage'])->name('mypage.updateImage');
     Route::patch('mypage/{mypage}/updatePassword', [MypageController::class, 'updatePassword'])->name('mypage.updatePassword');
-    Route::resource('manage', EvaluationController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('user', UserController::class);
+    Route::resource('department', DepartmentController::class);
+    Route::get('department',[DepartmentController::class,'editNew'])->name('department.editNew');;
     Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
     Route::get('/article', [QiitaController::class, 'index'])->name('article');
     Route::get('/techblog', [FeedController::class, 'feed'])->name('techblog');
     Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
     Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
-
+    Route::get('/mentees/search',[MenteesController::class, 'search'])->name('mentees.search');
 });
 
 Route::resource('mentees', MenteesController::class)->middleware(['auth', 'verified']);
