@@ -94,10 +94,18 @@ class MenteesController extends Controller
     {
         //
     }
+
+
     public function menteemypage($id)
     {
         $employee = User::find($id);
         // ddd($employee);
         return view('mypage.index', compact('employee'));
     }
+
+    public function search($id)
+    {
+    
+    }
+
 }
