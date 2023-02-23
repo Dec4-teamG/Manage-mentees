@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('TechArticle') }}
+            {{ __('Fusic TechBlog') }}
         </h2>
     </x-slot>
 
@@ -14,7 +14,7 @@
                         @csrf
                         <div class="flex flex-col mb-4">
                             <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="keyword">Keyword</label>
-                            <input class="border py-2 px-3 text-grey-darkest" type="text" name="keyword" id="keyword">
+                            <input class="border py-2 px-3 text-grey-darkest" type="text" name="keyword" id="keyword" value="{{ old('keyword') }}" placeholder="キーワードを入力してください">
                         </div>
                         <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
                             Search
@@ -25,16 +25,15 @@
         </div>
     </div>    
 
-    <!-- @foreach ($techblog as $tb)
+    @foreach ($techblog as $tb)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-red-500">
-                        {{ __("Fusic TechBlog") }}
-                        <a href="{{$tb[$i]['link']}}" target="_blank" rel="noopener noreferrer" class="underline">{{ $tb[$i]['title'] }}</a>
+                        <a href="{{ $tb['permalink'] }}" target="_blank" rel="noopener noreferrer" class="underline">{{ $tb['title'] }}</a>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
-</x-app-layout> -->
+</x-app-layout>

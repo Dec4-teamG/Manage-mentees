@@ -181,7 +181,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Vedmant\FeedReader\FeedReaderServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -210,7 +209,6 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'FeedReader' => Vedmant\FeedReader\Facades\FeedReader::class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
