@@ -23,7 +23,7 @@ class QiitaController extends Controller
             ],
         ]);
         $response_body =  $result->getBody();
-        $qiita = json_decode($response_body);
+        $qiita = json_decode($response_body); //JSONから配列にする
         $list=[];
         for ($i = 0, $size = count($qiita); $i < $size; ++$i) {
             
