@@ -59,9 +59,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('department', DepartmentController::class);
     Route::get('department',[DepartmentController::class,'editNew'])->name('department.editNew');;
     Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
+
     Route::get('/article', [QiitaController::class, 'index'])->name('article');
     Route::get('/techblog', [FeedController::class, 'feed'])->name('techblog');
+    Route::get('/awsblog', [FeedController::class, 'index'])->name('awsblog');
     Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
+    
     Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
     Route::get('/mentees/search',[MenteesController::class, 'search'])->name('mentees.search');
 });

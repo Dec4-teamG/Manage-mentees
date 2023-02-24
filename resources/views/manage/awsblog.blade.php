@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Qiita') }}
+            {{ __('AWS Blog') }}
         </h2>
     </x-slot>
 
@@ -22,31 +22,31 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>   
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between">
             <div class="flex bg-red-300 overflow-hidden">
-                <div class="flex-auto hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('techblog')" :active="request()->routeIs('techblog')">
                         {{ __('Fusic Techblog') }}
                     </x-nav-link>
                 </div>
-                <div class="flex-auto hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('awsblog')" :active="request()->routeIs('awsblog')">
-                        {{ __('AWS blog') }}
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('article')" :active="request()->routeIs('article')">
+                        {{ __('Qiita') }}
                     </x-nav-link>
                 </div>
             </div>    
         </div>
     </div>
 
-    @foreach ($qiita as $q)
+    @foreach ($awsblog as $aws)
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <a href="{{$q->url}}" target="_blank" rel="noopener noreferrer" class="underline">{{ $q->title }}</a>
+                    <div class="p-6 text-black">
+                        <a href="{{ $aws['permalink'] }}" target="_blank" rel="noopener noreferrer" class="underline">{{ $aws['title'] }}</a>
                     </div>
                 </div>
             </div>
