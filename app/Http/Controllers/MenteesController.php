@@ -112,20 +112,28 @@ class MenteesController extends Controller
     {
         //空白削除
         $keyword = trim($request->keyword);
+        $department = $request->department;
         // ヒットしたユーザの id を配列で取得
-        $users  = User::where('name', 'like', "%{$keyword}%")
-        ->pluck('id')
-        ->all();
+        if ($department == 'null'){
+            $users  = Employee::where('status', 'mentee')
+            ->pluck('user_id')
+            ->all();
+        }else{
+            $users  = Employee::where('status', 'mentee')
+            ->where('department', $department)
+            ->pluck('user_id')
+            ->all();
+        };
         // Employee テーブルの user_id カラムで上記配列に含まれているものを抽出
-        $mentees = Employee::query()
-            ->whereIn('user_id', $users)
+        $mentees = User::query()
+        ->where('name', 'like', "%{$keyword}%")
+            ->whereIn('id', $users)
             ->get();
         //ddd($employees);
         // ddd($mentees);
+        // ddd($request->department);
 
-        $departments = Department::query()
-            ->where('department', $mentees)
-            ->get();
+         $departments = Department::pluck('department')->all();
 
         return view('manage.mentees', compact('mentees','departments'));
     }
