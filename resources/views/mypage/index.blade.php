@@ -99,8 +99,9 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("Evaluation") }}
-                    @foreach($employee->evalution->description as $des)
-                    <?php echo $des;?>
+                    @foreach($employee->evaluation as $des)
+                    <p>{{$des->description}}</p>
+                    <p>{{$des->evaluation}}</p>
                     @endforeach
                 </div>
             </div>
