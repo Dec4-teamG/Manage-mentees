@@ -99,10 +99,31 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("Evaluation") }}
+                    @foreach($employee->evalution->description as $des)
+                    <?php echo $des;?>
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
+    @if($login_user->employee->department == $employee->employee->department && $login_user->employee->status == 'mentor')
+        <div class="py-6">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="flex flex-row">
+                        <h3 class="text-left p-6 text-gray-900">評価</h3>
+                    </div>
+                    <form action="{{ route('evaluation.newcreate',$employee->id) }}" method="GET" class="text-right">
+                        @csrf
+                        <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
+                            評価入力
+                        </button>
+                    </form>       
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="py-6">
         <div class="sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Department;
+use Auth;
 
 class MenteesController extends Controller
 {
@@ -104,8 +105,9 @@ class MenteesController extends Controller
     public function menteemypage($id)
     {
         $employee = User::find($id);
+        $login_user = User::find(Auth::user()->id);
         // ddd($employee);
-        return view('mypage.index', compact('employee'));
+        return view('mypage.index', compact('employee','login_user'));
     }
 
     public function search(Request $request)
