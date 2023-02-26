@@ -8,7 +8,7 @@ use App\Models\Evaluation;
 use App\Models\User;
 use Auth;
 
-class EvaluateController extends Controller
+class EvaluationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -91,6 +91,7 @@ class EvaluateController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $result = Evaluation::find($id)->delete();
+         return redirect()->route('mypage.index');
     }
 }

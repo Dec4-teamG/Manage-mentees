@@ -10,7 +10,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ArticleSearchController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\EvaluateController;
+use App\Http\Controllers\EvaluationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,8 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
     Route::get('/mentees/search',[MenteesController::class, 'search'])->name('mentees.search');
 
-    Route::resource('evaluation', EvaluateController::class);
-    Route::get('/mentees/{mentees}/menteemypage/newcreate', [EvaluateController::class,'newcreate'])->name('evaluation.newcreate');
+    Route::resource('evaluation', EvaluationController::class);
+    Route::get('/mentees/{mentees}/menteemypage/newcreate', [EvaluationController::class,'newcreate'])->name('evaluation.newcreate');
 });
 
 Route::resource('mentees', MenteesController::class)->middleware(['auth', 'verified']);
