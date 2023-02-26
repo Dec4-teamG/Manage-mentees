@@ -10,6 +10,7 @@ use App\Http\Controllers\MypageController;
 use App\Http\Controllers\ArticleSearchController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EvaluationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('permission', PermissionController::class);
     Route::resource('user', UserController::class);
     Route::resource('department', DepartmentController::class);
-    Route::get('department',[DepartmentController::class,'editNew'])->name('department.editNew');;
+    Route::get('department',[DepartmentController::class,'editNew'])->name('department.editNew');
     Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
 
     Route::get('/article', [QiitaController::class, 'index'])->name('article');
@@ -67,6 +68,9 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
     Route::get('/mentees/search',[MenteesController::class, 'search'])->name('mentees.search');
+
+    Route::resource('evaluation', EvaluationController::class);
+    Route::get('/mentees/{mentees}/menteemypage/newcreate', [EvaluationController::class,'newcreate'])->name('evaluation.newcreate');
 });
 
 Route::resource('mentees', MenteesController::class)->middleware(['auth', 'verified']);
