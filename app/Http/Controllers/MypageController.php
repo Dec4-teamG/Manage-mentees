@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Employee;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use Validator;
+
 
 
 class MypageController extends Controller
@@ -107,24 +109,72 @@ class MypageController extends Controller
 
     public function updateProfile(Request $request, $id)
     {
+
+        $validator = Validator::make($request->all(), [
+    'profile' => 'required',
+    ]);
+//ddd($request);
+    if ($validator->fails()) {
+    return redirect()
+      ->route('mypage.editProfile',$id)
+      ->withInput()
+      ->withErrors($validator);
+    }
+
+
         $result = Employee::find($id)->update($request->all());
         return redirect()->route('mypage.index');
     }
 
     public function updateGithub(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+        'github' => 'required',
+        ]);
+//ddd($request);
+    if ($validator->fails()) {
+    return redirect()
+      ->route('mypage.editGithub',$id)
+      ->withInput()
+      ->withErrors($validator);
+    }
+
+
         $result = Employee::find($id)->update($request->all());
         return redirect()->route('mypage.index');
     }
 
     public function updateImage(Request $request, $id)
     {
+         $validator = Validator::make($request->all(), [
+        'image' => 'required',
+        ]);
+    if ($validator->fails()) {
+    return redirect()
+      ->route('mypage.editImage',$id)
+      ->withInput()
+      ->withErrors($validator);
+    }
+        
         $result = Employee::find($id)->update($request->all());
         return redirect()->route('mypage.index');
     }
 
     public function updatePassword(Request $request, $id)
     {
+
+         $validator = Validator::make($request->all(), [
+        'password' => 'required | min:7',
+        ]);
+
+    if ($validator->fails()) {
+    return redirect()
+      ->route('mypage.editPassword',$id)
+      ->withInput()
+      ->withErrors($validator);
+    }
+
+
         $password = Hash::make($request->password);
         $result = User::find($id)->update(['password' => $password]);
         return redirect()->route('mypage.index');

@@ -37,14 +37,15 @@
                         <form action="{{ route('mypage.updateProfile',$employee->employee->id) }}" method="post">
                         @method('patch')
                         @csrf
+                        
                             <div class="flex flex-row">
-                                <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="profile">profile</label>
+                                <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="profile">Profile</label>
                                 @if ($employee->employee->profile != 'null')
-                                <input class="border py-2 px-3 text-grey-darkest" type="text" name="profile" id="peofile" value="{{$employee->employee->profile}}">
+                                <input class="border py-2 px-3 text-grey-darkest" type="text" name="profile" id="profile" value="{{$employee->employee->profile}}">
                                 @else
-                                <input class="border py-2 px-3 text-grey-darkest" type="text" name="profile" id="peofile">
+                                <input class="border py-2 px-3 text-grey-darkest" type="text" name="profile" id="profile">
                                 @endif
-                            </div>
+                            </div>@include('common.errors')
                             <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
                             Update
                             </button>
