@@ -20,11 +20,11 @@
                             <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="evaluation">Level</label>
                             <select class="border py-2 px-3 text-grey-darkest" type="text" name="evaluation" id="evaluation">
                                 <option hidden>選択してください</option>
-                                <option value=1>★</option>
-                                <option value=2>★★</option>
-                                <option value=3>★★★</option>
-                                <option value=4>★★★★</option>
-                                <option value=5>★★★★★</option>
+                                <option value='★☆☆☆☆'>★☆☆☆☆</option>
+                                <option value='★★☆☆☆'>★★☆☆☆</option>
+                                <option value='★★★☆☆'>★★★☆☆</option>
+                                <option value='★★★★☆'>★★★★☆</option>
+                                <option value='★★★★★'>★★★★★</option>
                             </select>
                         </div>
                         <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
