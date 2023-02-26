@@ -3,14 +3,34 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 use Vedmant\FeedReader\Facades\FeedReader;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class FeedController extends Controller
+class ArticleController extends Controller
 {
-    public function feed()
+    public function qiita()
+    {
+        $client = new Client;
+        $token = '01be66738a3c21afff603341d054b91358e3b851';
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=user>%3D%3Afusic',);
+        $response_body =  $result->getBody();
+        $arr = json_decode($response_body); //JSONから配列にする
+        $coll = collect($arr);
+        $qiita = $this->paginate($coll, 10, null, ['path'=>'/article']);    
+        // $list=[];
+        // for ($i = 0, $size = count($qiita); $i < $size; ++$i) {
+            
+        //     $list = array_merge($list, array($qiita[$i]->title => $qiita[$i]->url));
+        // }
+ 
+        return view('manage.article',compact('qiita'));
+
+    }
+    
+    public function techblog()
     {
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
