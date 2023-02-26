@@ -37,6 +37,7 @@
                     </div>
                 </div>
             </div>
+            @if($employee->id == $login_user->id)
             <div class="py-6">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -52,6 +53,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             <div class="py-6">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -63,12 +65,14 @@
                             <h3 class="text-left p-6 text-gray-900"></h3>
                             @endif
                         </div>
+                        @if($employee->id == $login_user->id)
                         <form action="{{ route('mypage.editProfile',$employee->id) }}" method="GET" class="text-right">
                             @csrf
                             <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
                                 更新
                             </button>
-                        </form>       
+                        </form> 
+                        @endif      
                     </div>
                 </div>
             </div>
@@ -83,12 +87,14 @@
                             <h3 class="text-left p-6 text-gray-900"></h3>
                             @endif
                         </div>
+                        @if($employee->id == $login_user->id)
                         <form action="{{ route('mypage.editGithub',$employee->id) }}" method="GET" class="text-right">
                             @csrf
                             <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
                                 更新
                             </button>
-                        </form>       
+                        </form> 
+                        @endif      
                     </div>
                 </div>
             </div>
