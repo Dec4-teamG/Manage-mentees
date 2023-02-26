@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Vedmant\FeedReader\Facades\FeedReader;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FeedController extends Controller
 {
@@ -25,11 +28,12 @@ class FeedController extends Controller
                 $i['date'] = $item->get_date();
                 $i['permalink'] = $item->get_permalink();
                 $result['items'][] = $i;
-            }
-            $techblog = $result['items'];        
+            }   
+            $coll = collect($result['items']);
+            $techblog = $this->paginate($coll, 10, null, ['path'=>'/techblog']);   
             return view('manage.techblog',compact('techblog'));
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -54,8 +58,16 @@ class FeedController extends Controller
                 $i['permalink'] = $item->get_permalink();
                 $result['items'][] = $i;
             }
-            $awsblog = $result['items'];      
+            $coll = collect($result['items']);
+            $awsblog = $this->paginate($coll, 10, null, ['path'=>'/awsblog']);    
             return view('manage.awsblog',compact('awsblog'));
+    }
+
+    private function paginate($items, $perPage, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
     /**
