@@ -45,6 +45,18 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+    'description' => 'required | max:15',
+    'evaluation' => 'required',
+  ]);
+  // バリデーション:エラー
+  if ($validator->fails()) {
+    return redirect()
+      ->back()
+      ->withInput()
+      ->withErrors($validator);
+  }
+        
         $result = Evaluation::create($request->all());
         return redirect()->route('mypage.index');
     }

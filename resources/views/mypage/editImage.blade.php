@@ -10,6 +10,7 @@
                 @method('patch')
                 @csrf
                 <input type="file" name="image" enctype="multipart/form-data" value="https://2.bp.blogspot.com/-WKhyux3zjI8/XASwaSwkEGI/AAAAAAABQZ4/5csR5XWpXNoxbA-cvkPm-SdeSeab1lkNACLcBGAs/s800/computer_programming_woman.png">
+                    @include('common.errors')
                 <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
                     Update
                 </button>
