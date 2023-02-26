@@ -20,9 +20,10 @@ class MypageController extends Controller
     public function index()
     {
         $employee = User::find(Auth::user()->id);
+        $login_user = User::find(Auth::user()->id);
         //$employeeName = $employee->name;
         //$employeeDepartment = $employee->employee->department;
-        return view('mypage.index',compact('employee'));
+        return view('mypage.index',compact('employee','login_user'));
     }
 
     /**
