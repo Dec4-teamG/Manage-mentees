@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\QiitaController as qc;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Http\Controllers\ArticleController;
+use GuzzleHttp\Client;
+use Vedmant\FeedReader\Facades\FeedReader;
+
 
 class ArticleSearchController extends Controller
 {
@@ -14,14 +20,22 @@ class ArticleSearchController extends Controller
      */
     public function index(Request $request)
     {
-        // $keyword = trim($request->keyword);
-        // $users  = User::where('name', 'like', "%{$keyword}%")->pluck('id')->all();
-        // $arts = Tweet::query()
-        //     ->where('tweet', 'like', "%{$keyword}%")
-        //     ->orWhere('description', 'like', "%{$keyword}%")
-        //     ->orWhereIn('user_id', $users)
-        //     ->get();
-        // return view('manage.article', compact('arts'));
+        $keyword = trim($request->keyword);
+        $client = new Client;
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+title%3A'.$keyword,);
+        $response_body =  $result->getBody();
+        $arr = json_decode($response_body); //JSONから配列にする
+        $coll = collect($arr);
+        $qiita = $this->paginate($coll, 10, null, ['path'=>'/article']);  
+
+        return view('manage.article', compact('qiita'));
+    }
+
+    private function paginate($items, $perPage, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
 
@@ -32,7 +46,7 @@ class ArticleSearchController extends Controller
      */
     public function create()
     {
-        return view('manage.article');
+   
     }
 
     /**

@@ -11,27 +11,20 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ArticleController extends Controller
 {
-    public function qiita()
+    public function qiita(Request $request)
     {
         $client = new Client;
-        $token = '01be66738a3c21afff603341d054b91358e3b851';
-        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=user>%3D%3Afusic',);
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+user>%3D%3Afusic',);
         $response_body =  $result->getBody();
         $arr = json_decode($response_body); //JSONから配列にする
         $coll = collect($arr);
         $qiita = $this->paginate($coll, 10, null, ['path'=>'/article']);    
-        // $list=[];
-        // for ($i = 0, $size = count($qiita); $i < $size; ++$i) {
-            
-        //     $list = array_merge($list, array($qiita[$i]->title => $qiita[$i]->url));
-        // }
- 
         return view('manage.article',compact('qiita'));
-
     }
     
-    public function techblog()
+    public function techblog(Request $request)
     {
+        dd($request->server);
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
             $result = [
@@ -50,8 +43,12 @@ class ArticleController extends Controller
                 $result['items'][] = $i;
             }   
             $coll = collect($result['items']);
-            $techblog = $this->paginate($coll, 10, null, ['path'=>'/techblog']);   
-            return view('manage.techblog',compact('techblog'));
+            $techblog = $this->paginate($coll, 10, null, ['path'=>'/techblog']); 
+            
+            // for ($i = 0, $size = count($techblog); $i < $size; ++$i) {
+            //  $list = array_merge($list, array($techblog[$i]->title => $techblog[$i]->url));
+            // }  
+        return view('manage.techblog',compact('techblog'));
     }
 
     /**
