@@ -13,17 +13,20 @@ class ArticleController extends Controller
 {
     public function qiita(Request $request)
     {
+        $keyword = trim($request->keyword);
         $client = new Client;
-        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+user>%3D%3Afusic',);
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+title%3A'.$keyword,);
         $response_body =  $result->getBody();
         $arr = json_decode($response_body); //JSONから配列にする
         $coll = collect($arr);
-        $qiita = $this->paginate($coll, 10, null, ['path'=>'/article']);    
-        return view('manage.article',compact('qiita'));
+        $qiita = $this->paginate($coll, 10, null, ['path'=>'/article']);  
+
+        return view('manage.article', compact('qiita'));
     }
     
     public function techblog(Request $request)
     {
+        $keyword = trim($request->keyword);
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
             $result = [
@@ -33,20 +36,14 @@ class ArticleController extends Controller
             ];
             foreach ($f->get_items(0, $f->get_item_quantity()) as $item) {
                 $i['title'] = $item->get_title();
-                $i['description'] = $item->get_description();
-                $i['id'] = $item->get_id();
-                $i['content'] = $item->get_content();
-                $i['author'] = $item->get_author();
-                $i['date'] = $item->get_date();
                 $i['permalink'] = $item->get_permalink();
-                $result['items'][] = $i;
-            }   
-            $coll = collect($result['items']);
+                if ($keyword === null || str_contains($i['title'],$keyword) != false) {
+                    $result['items'][] = $i;              
+                }   
+            }
+            $items = $result['items'];            
+            $coll = collect($items);
             $techblog = $this->paginate($coll, 10, null, ['path'=>'/techblog']); 
-            // techblog['title']
-            // for ($i = 0, $size = count($techblog); $i < $size; ++$i) {
-            //  $list = array_merge($list, array($techblog[$i]->title => $techblog[$i]->url));
-            // }  
         return view('manage.techblog',compact('techblog'));
     }
 
@@ -55,8 +52,10 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $keyword = trim($request->keyword);
+        
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://aws.amazon.com/jp/blogs/architecture/feed/');
             $result = [
@@ -66,15 +65,13 @@ class ArticleController extends Controller
             ];
             foreach ($f->get_items(0, $f->get_item_quantity()) as $item) {
                 $i['title'] = $item->get_title();
-                $i['description'] = $item->get_description();
-                $i['id'] = $item->get_id();
-                // $i['content'] = $item->get_content();
-                // $i['author'] = $item->get_author();
-                $i['date'] = $item->get_date();
                 $i['permalink'] = $item->get_permalink();
-                $result['items'][] = $i;
+                if ($keyword === null || str_contains($i['title'],$keyword) != false) {
+                    $result['items'][] = $i;              
+                }   
             }
-            $coll = collect($result['items']);
+            $items = $result['items'];
+            $coll = collect($items);
             $awsblog = $this->paginate($coll, 10, null, ['path'=>'/awsblog']);    
             return view('manage.awsblog',compact('awsblog'));
     }
