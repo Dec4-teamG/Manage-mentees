@@ -107,41 +107,24 @@ class MypageController extends Controller
         //
     }
 
-    public function updateProfile(Request $request, $id)
+    public function updateAll(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [
     'profile' => 'required',
+    'github' => 'required',
     ]);
 //ddd($request);
     if ($validator->fails()) {
     return redirect()
-      ->route('mypage.editProfile',$id)
+      ->route('mentees.menteemypage', ['mentees' => $id])
       ->withInput()
       ->withErrors($validator);
     }
 
 
         $result = Employee::find($id)->update($request->all());
-        return redirect()->route('mypage.index');
-    }
-
-    public function updateGithub(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-        'github' => 'required',
-        ]);
-//ddd($request);
-    if ($validator->fails()) {
-    return redirect()
-      ->route('mypage.editGithub',$id)
-      ->withInput()
-      ->withErrors($validator);
-    }
-
-
-        $result = Employee::find($id)->update($request->all());
-        return redirect()->route('mypage.index');
+        return redirect()->route('mentees.menteemypage' , ['mentees'=>$id]);
     }
 
     public function updateImage(Request $request, $id)
@@ -157,7 +140,7 @@ class MypageController extends Controller
     }
         
         $result = Employee::find($id)->update($request->all());
-        return redirect()->route('mypage.index');
+        return redirect()->route('mentees.menteemypage' , ['mentees'=>$id]);
     }
 
     public function updatePassword(Request $request, $id)
@@ -177,7 +160,7 @@ class MypageController extends Controller
 
         $password = Hash::make($request->password);
         $result = User::find($id)->update(['password' => $password]);
-        return redirect()->route('mypage.index');
+        return redirect()->route('mentees.menteemypage', ['mentee'=>$id]);
     }
     /**
      * Remove the specified resource from storage.
