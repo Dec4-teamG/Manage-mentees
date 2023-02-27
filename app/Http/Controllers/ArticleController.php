@@ -24,7 +24,6 @@ class ArticleController extends Controller
     
     public function techblog(Request $request)
     {
-        dd($request->server);
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
             $result = [
@@ -44,7 +43,7 @@ class ArticleController extends Controller
             }   
             $coll = collect($result['items']);
             $techblog = $this->paginate($coll, 10, null, ['path'=>'/techblog']); 
-            
+            // techblog['title']
             // for ($i = 0, $size = count($techblog); $i < $size; ++$i) {
             //  $list = array_merge($list, array($techblog[$i]->title => $techblog[$i]->url));
             // }  
