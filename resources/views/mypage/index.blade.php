@@ -9,14 +9,17 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <img src="https://tori-dori.com/wp/wp-content/uploads/BP17-063036D.jpg" width="700" height="500" class="rounded-full">
             </div>
+            @if($employee->id == $login_user->id)
             <form action="{{ route('mypage.editImage',$employee->id) }}" method="GET" class="text-right">
                 @csrf
                     <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
                         更新
                     </button>
-            </form>       
+            </form> 
+            @endif      
         </div>
         <div class="flex-1">
+            @include('common.errors')
             <div class="py-6">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex flex-row">

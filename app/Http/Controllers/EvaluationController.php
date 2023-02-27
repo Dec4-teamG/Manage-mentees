@@ -49,6 +49,7 @@ class EvaluationController extends Controller
     'description' => 'required | max:15',
     'evaluation' => 'required',
   ]);
+  //ddd($request->user_id);
   // バリデーション:エラー
   if ($validator->fails()) {
     return redirect()
@@ -58,7 +59,7 @@ class EvaluationController extends Controller
   }
         
         $result = Evaluation::create($request->all());
-        return redirect()->route('mypage.index');
+        return redirect()->route('mentees.menteemypage' , ['mentees'=>$request->user_id]);
     }
 
     /**
