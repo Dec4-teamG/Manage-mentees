@@ -6,9 +6,9 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MenteesController;
 use App\Http\Controllers\MypageController;
-use App\Http\Controllers\ArticleSearchController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\DescriptionController;
 use App\Http\Controllers\EvaluationController;
 
 /*
@@ -40,12 +40,16 @@ Route::middleware('auth')->group(function () {
     //Route::resource('user', UserController::class);
     Route::resource('department', DepartmentController::class);
     Route::get('department',[DepartmentController::class,'editNew'])->name('department.editNew');
+    Route::resource('description', DescriptionController::class);
+    Route::get('description/{description}', [DescriptionController::class,'newcreate'])->name('description.newcreate');
+    Route::get('description',[DescriptionController::class,'editNew'])->name('description.editNew');
+
     //Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
 
     Route::get('/article', [ArticleController::class, 'qiita'])->name('article');
     Route::get('/techblog', [ArticleController::class, 'techblog'])->name('techblog');
     Route::get('/awsblog', [ArticleController::class, 'index'])->name('awsblog');
-    Route::get('/article/search', [ArticleSearchController::class, 'index'])->name('article.search');
+    
     
     Route::get('/mentees/{mentees}/menteemypage', [MenteesController::class, 'menteemypage'])->name('mentees.menteemypage');
     Route::get('/mentees/search',[MenteesController::class, 'search'])->name('mentees.search');
