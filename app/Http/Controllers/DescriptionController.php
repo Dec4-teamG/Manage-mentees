@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Description;
+use Validator;
 
 class DescriptionController extends Controller
 {
@@ -38,15 +39,32 @@ class DescriptionController extends Controller
 
     public function newcreate($id)
     {   
-        $mypageid = User::find($id)->id;
+        //dd($id);
 
-        return view('description.create',compact('mypageid'));
+        return view('description.create',compact('id'));
     }
 
     public function store(Request $request)
     {
         //$result = Description::create($request->all());
         //dd($request->description);
+         $validator = Validator::make($request->all(), [
+            // descriptionsテーブルのdescriptionカラムで一意チェック
+            'description' => 'unique:descriptions'
+        ]);
+
+        $id = $request->id;
+       // dd($id);
+
+        if ($validator->fails()) {
+        return redirect()
+        ->route('description.newcreate',['description'=>$id])
+        ->withInput()
+        ->withErrors($validator);
+        }
+
+
+
         $description = Description::create([
           'description'=>$request->description,
         ]);
@@ -61,7 +79,6 @@ class DescriptionController extends Controller
             ->where('id', $description->id)
             ->update($description2);
         
-        $id = $request->mypageid;
         //dd($id);
         return redirect()->route('evaluation.newcreate',['mentees'=>$id]);
 

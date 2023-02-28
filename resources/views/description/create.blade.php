@@ -12,7 +12,7 @@
           @include('common.errors')
           <form class="mb-6" action="{{ route('description.store') }}" method="POST">
             @csrf
-            <input type= "hidden" name="mypageid" value=<?php echo $mypageid;?>>
+            <input type= "hidden" name="id" value=<?php echo $id ;?>>
             <div class="flex flex-col mb-4">
               <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="description">description</label>
               <input class="border py-2 px-3 text-grey-darkest" type="text" name="description" id="description">
