@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //managerだけに適応
         Gate::define('manager_only',function($user){
-            return($user->employee->status == manager);
+            return($user->employee->status == 'manager');
         });
     }
 }
