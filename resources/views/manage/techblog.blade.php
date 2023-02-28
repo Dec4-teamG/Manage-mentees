@@ -5,24 +5,26 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:w-8/12 md:w-1/2 lg:w-5/12">
+    <div class="py-3">
+        <div class="max-w-7xl mx-auto sm:w-8/12 md:w-1/2 lg:w-7/12">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    @include('common.errors')
-                    <form class="mb-6" action="{{ route('article.search') }}" method="GET">
+                    <form class="flex" action="{{ route('techblog') }}" method="GET">
                         @csrf
-                        <div class="flex flex-col mb-4">
-                            <input class="border py-2 px-3 text-grey-darkest" type="text" name="keyword" id="keyword" value="{{ old('keyword') }}" placeholder="キーワードを入力してください">
+                        <div class="flex-auto m-4">
+                            <input class="border py-2 text-grey-darkest" type="text" name="keyword" id="keyword" value="{{ old('keyword') }}" placeholder="キーワードを入力してください">
                         </div>
-                        <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
-                            Search
-                        </button>
+                        @include('common.errors')
+                        <div class="flex-auto">
+                            <button type="submit" class="w-full py-2 m-auto font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
+                                Search
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>     
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between">
@@ -51,6 +53,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-black">
+                        @include('common.errors')
                         <a href="{{ $tb['permalink'] }}" target="_blank" rel="noopener noreferrer" class="underline">{{ $tb['title'] }}</a>
                     </div>
                 </div>
