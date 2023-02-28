@@ -50,7 +50,7 @@ class DescriptionController extends Controller
         //dd($request->description);
          $validator = Validator::make($request->all(), [
             // descriptionsテーブルのdescriptionカラムで一意チェック
-            'description' => 'unique:descriptions'
+            'description' => 'required | unique:descriptions'
         ]);
 
         $id = $request->id;
