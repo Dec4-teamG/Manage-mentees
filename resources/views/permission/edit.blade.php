@@ -53,6 +53,7 @@
                         @endforeach
                     </select>
                 </div>
+                @if($employee->employee->status != 'manager')
                 <div class="flex flex-col mb-4">
                 <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="status">status</label>
                     <select class="form-control" id="status" name="status">
@@ -66,6 +67,7 @@
                 <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
                 Update
                 </button>
+                @endif
             </form>
           </div>
         </div>
