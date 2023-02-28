@@ -32,15 +32,15 @@ Route::middleware('auth')->group(function () {
     Route::get('mypage/{mypage}/editGithub', [MypageController::class, 'editGithub'])->name('mypage.editGithub');
     Route::get('mypage/{mypage}/editImage', [MypageController::class, 'editImage'])->name('mypage.editImage');
     Route::get('mypage/{mypage}/editPassword', [MypageController::class, 'editPassword'])->name('mypage.editPassword');
-    Route::patch('mypage/{mypage}/updateProfile', [MypageController::class, 'updateProfile'])->name('mypage.updateProfile');
+    Route::patch('mypage/{mypage}/updateAll', [MypageController::class, 'updateAll'])->name('mypage.updateAll');
     Route::patch('mypage/{mypage}/updateGithub', [MypageController::class, 'updateGithub'])->name('mypage.updateGithub');
     Route::patch('mypage/{mypage}/updateImage', [MypageController::class, 'updateImage'])->name('mypage.updateImage');
     Route::patch('mypage/{mypage}/updatePassword', [MypageController::class, 'updatePassword'])->name('mypage.updatePassword');
-    Route::resource('permission', PermissionController::class);
-    Route::resource('user', UserController::class);
+    //Route::resource('permission', PermissionController::class);
+    //Route::resource('user', UserController::class);
     Route::resource('department', DepartmentController::class);
     Route::get('department',[DepartmentController::class,'editNew'])->name('department.editNew');
-    Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
+    //Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
 
     Route::get('/article', [ArticleController::class, 'qiita'])->name('article');
     Route::get('/techblog', [ArticleController::class, 'techblog'])->name('techblog');
@@ -63,9 +63,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('can:manager_only')->group(function (){
+    Route::resource('permission', PermissionController::class);
+    Route::get('permission/{permission}/createNew',[PermissionController::class,'createNew'])->name('permission.createNew');
+    Route::resource('user', UserController::class);
 
-
+});
 
 
 require __DIR__.'/auth.php';
-
