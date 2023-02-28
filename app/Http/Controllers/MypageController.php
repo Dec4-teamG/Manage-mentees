@@ -107,17 +107,35 @@ class MypageController extends Controller
         //
     }
 
-    public function updateAll(Request $request, $id)
+    public function updateGithub(Request $request, $id)
     {
 
         $validator = Validator::make($request->all(), [
-    'profile' => 'required',
     'github' => 'required',
     ]);
 //ddd($request);
     if ($validator->fails()) {
     return redirect()
-      ->route('mentees.menteemypage', ['mentees' => $id])
+      ->route('mypage.editGithub', ['mypage' => $id])
+      ->withInput()
+      ->withErrors($validator);
+    }
+
+
+        $result = Employee::find($id)->update($request->all());
+        return redirect()->route('mentees.menteemypage' , ['mentees'=>$id]);
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+
+        $validator = Validator::make($request->all(), [
+    'profile' => 'required',
+    ]);
+//ddd($request);
+    if ($validator->fails()) {
+    return redirect()
+      ->route('mypage.editProfile', ['mypage' => $id])
       ->withInput()
       ->withErrors($validator);
     }
