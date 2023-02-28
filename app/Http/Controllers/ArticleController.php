@@ -26,7 +26,10 @@ class ArticleController extends Controller
     
     public function techblog(Request $request)
     {
+        // 空白削除
         $keyword = trim($request->keyword);
+        // 大文字を小文字にする
+        $sm_keyword = mb_strtolower($keyword);
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://tech.fusic.co.jp/rss.xml');
             $result = [
@@ -34,16 +37,20 @@ class ArticleController extends Controller
                 'description' => $f->get_description(),
                 'permalink' => $f->get_permalink(),
             ];
+            $result['items'] = [];
+
             foreach ($f->get_items(0, $f->get_item_quantity()) as $item) {
                 $i['title'] = $item->get_title();
                 $i['permalink'] = $item->get_permalink();
-                if ($keyword === null || str_contains($i['title'],$keyword) != false) {
+                $sm_title = mb_strtolower($i['title']);
+                if ($keyword === null || str_contains($sm_title,$sm_keyword) != false) {
                     $result['items'][] = $i;              
                 }   
             }
-            $items = $result['items'];            
-            $coll = collect($items);
-            $techblog = $this->paginate($coll, 10, null, ['path'=>'/techblog']); 
+        $items = $result['items'];            
+        $coll = collect($items);
+        $techblog = $this->paginate($coll, 10, null, ['path'=>'/techblog']); 
+
         return view('manage.techblog',compact('techblog'));
     }
 
@@ -55,7 +62,7 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         $keyword = trim($request->keyword);
-        
+        $sm_keyword = mb_strtolower($keyword);
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://aws.amazon.com/jp/blogs/architecture/feed/');
             $result = [
@@ -63,9 +70,12 @@ class ArticleController extends Controller
                 'description' => $f->get_description(),
                 'permalink' => $f->get_permalink(),
             ];
+            $result['items'] = [];
+
             foreach ($f->get_items(0, $f->get_item_quantity()) as $item) {
                 $i['title'] = $item->get_title();
                 $i['permalink'] = $item->get_permalink();
+                $sm_title = mb_strtolower($i['title']);
                 if ($keyword === null || str_contains($i['title'],$keyword) != false) {
                     $result['items'][] = $i;              
                 }   
