@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
-use App\Models\Evaluation;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Description;
-use Auth;
 
-class EvaluationController extends Controller
+class DescriptionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +16,7 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-        return view('mypage.index');
+        //
     }
 
     /**
@@ -28,16 +26,7 @@ class EvaluationController extends Controller
      */
     public function create()
     {
-        
-    }
-
-    public function newcreate($id)
-    {
-        //dd($id);
-        $user = User::find($id);
-        $descriptions = Description::pluck('description')->all();
-        // ddd($id);
-        return view('evaluation.create',compact('user','descriptions'));
+        return view('description.create');
     }
 
     /**
@@ -46,23 +35,36 @@ class EvaluationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function newcreate($id)
+    {   
+        $mypageid = User::find($id)->id;
+
+        return view('description.create',compact('mypageid'));
+    }
+
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-    'description' => 'required | max:15',
-    'evaluation' => 'required',
-  ]);
-  //ddd($request->user_id);
-  // バリデーション:エラー
-  if ($validator->fails()) {
-    return redirect()
-      ->back()
-      ->withInput()
-      ->withErrors($validator);
-  }
+        //$result = Description::create($request->all());
+        //dd($request->description);
+        $description = Description::create([
+          'description'=>$request->description,
+        ]);
+
+        $description2 = [
+            'created_at'=>$description->created_at,
+            'updated_at'=>$description->updated_at,
+            'description'=>$request->description,
+        ];
+
+        DB::table('descriptions')
+            ->where('id', $description->id)
+            ->update($description2);
         
-        $result = Evaluation::create($request->all());
-        return redirect()->route('mentees.menteemypage' , ['mentees'=>$request->user_id]);
+        $id = $request->mypageid;
+        //dd($id);
+        return redirect()->route('evaluation.newcreate',['mentees'=>$id]);
+
     }
 
     /**
@@ -73,7 +75,7 @@ class EvaluationController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
@@ -107,7 +109,6 @@ class EvaluationController extends Controller
      */
     public function destroy($id)
     {
-         $result = Evaluation::find($id)->delete();
-         return redirect()->route('mypage.index');
+        //
     }
 }
