@@ -12,7 +12,7 @@
                     <form class="flex" action="{{ route('awsblog') }}" method="GET">
                         @csrf
                         <div class="flex-auto m-4">
-                            <input class="border py-2 text-grey-darkest" type="text" name="keyword" id="keyword" value="{{ old('keyword') }}" placeholder="キーワードを入力してください">
+                            <input class="w-full border py-2 text-grey-darkest" type="text" name="keyword" id="keyword" value="{{ old('keyword') }}" placeholder="キーワードを入力してください">
                         </div>
                         @include('common.errors')
                         <div class="flex-auto">

@@ -15,7 +15,7 @@ class ArticleController extends Controller
     {
         $keyword = trim($request->keyword);
         $client = new Client;
-        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+title%3A'.$keyword,);
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+'.$keyword,);
         $response_body =  $result->getBody();
         $arr = json_decode($response_body); //JSONから配列にする
         $coll = collect($arr);
@@ -26,8 +26,19 @@ class ArticleController extends Controller
     
     public function techblog(Request $request)
     {
-        // 空白削除
-        $keyword = trim($request->keyword);
+        if($request->keyword == null){
+            $server = $request->server; //
+            foreach($server as $key=>$value){
+                if($key == "HTTP_REFERER"){
+                    $pre_url = $value; // 1つ前のURL
+                }   
+            }
+        $exp = explode('=',$pre_url); //urlの末尾から'='までを取得
+        $end = end($exp);
+        $keyword = $end;
+        }else{
+            $keyword = trim($request->keyword); // 空白削除
+        }
         // 大文字を小文字にする
         $sm_keyword = mb_strtolower($keyword);
         /** @var \SimplePie $f */
@@ -61,7 +72,19 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = trim($request->keyword);
+        if($request->keyword == null){
+            $server = $request->server; //
+            foreach($server as $key=>$value){
+                if($key == "HTTP_REFERER"){
+                    $pre_url = $value; // 1つ前のURL
+                }   
+            }
+        $exp = explode('=',$pre_url); //urlの末尾から'='までを取得
+        $end = end($exp);
+        $keyword = $end;
+        }else{
+            $keyword = trim($request->keyword);
+        }
         $sm_keyword = mb_strtolower($keyword);
         /** @var \SimplePie $f */
         $f = FeedReader::read('https://aws.amazon.com/jp/blogs/architecture/feed/');
@@ -76,7 +99,7 @@ class ArticleController extends Controller
                 $i['title'] = $item->get_title();
                 $i['permalink'] = $item->get_permalink();
                 $sm_title = mb_strtolower($i['title']);
-                if ($keyword === null || str_contains($i['title'],$keyword) != false) {
+                if ($keyword === null || str_contains($sm_title,$sm_keyword) != false) {
                     $result['items'][] = $i;              
                 }   
             }
