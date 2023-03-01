@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Evaluation extends Model
 {
     use HasFactory;
-
-    protected $fillable = [
-        'description',
-        'evaluation',
-        'user_id',
+    protected $guarded = [
+      'id',
+      'created_at',
+      'updated_at',
     ];
+
+  public static function getAllOrderByEvaluation()
+  {
+    return self::orderBy('evaluation', 'desc')->get();
+  }
+
 }

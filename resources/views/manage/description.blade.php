@@ -63,6 +63,22 @@
                   <div class="flex flex-row">
                   <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$mentee->name}}</h3>
                   <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$mentee->employee->department}}</h3>
+                  @foreach ($mentee->evaluation as $evaluation)
+                    @if ($evaluation->description == $description)
+                    <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$description}}</h3>
+                        @if($evaluation->evaluation == 1)
+                        <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★☆☆☆☆</h3>
+                        @elseif($evaluation->evaluation == 2)
+                        <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★☆☆☆</h3>
+                        @elseif($evaluation->evaluation == 3)
+                        <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★★☆☆</h3>
+                        @elseif($evaluation->evaluation == 4)
+                        <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★★★☆</h3>
+                        @elseif($evaluation->evaluation == 5)
+                        <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★★★★</h3>
+                        @endif
+                    @endif
+                  @endforeach
                   </div>
                   </a>
                 </td>
