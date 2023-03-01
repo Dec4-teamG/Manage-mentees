@@ -14,12 +14,6 @@
                             追加
                         </button>
                     </form>
-                    <form action="{{ route('description.editNew') }}" method="GET" class="text-right">
-                        @csrf
-                        <button type="submit" class="mr-2 ml-2 text-sm bg-gray-500 hover:bg-gray-400 text-white rounded px-4 py-2  focus:outline-none focus:shadow-outline">
-                        編集
-                        </button>
-                    </form>       
                     <form class="mb-6" action="{{ route('evaluation.store') }}" method="POST">
                         @csrf
                         <input type= "hidden" name="user_id" value=<?php echo $user->id;?>>
