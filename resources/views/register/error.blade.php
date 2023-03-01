@@ -1,6 +1,9 @@
-<x-guest-layout>
+x-guest-layout>
     <form method="POST" action="{{ route('user.store') }}">
         @csrf
+        <div class = "py-4 px-6 border-b border-grey-light" >
+            <h3 class="text-left font-bold text-lg text-grey-dark">このメールアドレスはすでに登録されています。他のメールアドレスを登録してください。</h3>
+        </div>
 
         <!-- Name -->
         <div>
