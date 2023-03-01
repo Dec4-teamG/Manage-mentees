@@ -48,18 +48,25 @@ class EvaluationController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = strval($request->user_id);
+        $menteedes = $user_id .$request->description;
+        //dd($menteedes);
+        $request->merge(['menteedes' => $menteedes]);
+        //dd($request->menteedes);
         $validator = Validator::make($request->all(), [
-    'description' => 'required | max:15',
-    'evaluation' => 'required',
-  ]);
-  //ddd($request->user_id);
-  // バリデーション:エラー
-  if ($validator->fails()) {
-    return redirect()
-      ->back()
-      ->withInput()
-      ->withErrors($validator);
-  }
+            'description' => 'required | max:15',
+            'evaluation' => 'required',
+            'menteedes' => 'required | unique:evaluations'
+        ]);
+
+        //ddd($request->user_id);
+        // バリデーション:エラー
+        if ($validator->fails()) {
+            return redirect()
+            ->back()
+            ->withInput()
+            ->withErrors($validator);
+        }
         
         $result = Evaluation::create($request->all());
         return redirect()->route('mentees.menteemypage' , ['mentees'=>$request->user_id]);

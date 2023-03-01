@@ -36,11 +36,11 @@
                             <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="evaluation">Level</label>
                             <select class="border py-2 px-3 text-grey-darkest" type="text" name="evaluation" id="evaluation">
                                 <option hidden ></option>
-                                <option value='★☆☆☆☆'>★☆☆☆☆</option>
-                                <option value='★★☆☆☆'>★★☆☆☆</option>
-                                <option value='★★★☆☆'>★★★☆☆</option>
-                                <option value='★★★★☆'>★★★★☆</option>
-                                <option value='★★★★★'>★★★★★</option>
+                                <option value=1>★☆☆☆☆</option>
+                                <option value=2>★★☆☆☆</option>
+                                <option value=3>★★★☆☆</option>
+                                <option value=4>★★★★☆</option>
+                                <option value=5>★★★★★</option>
                             </select>
                         </div>
                         @include('common/errors')

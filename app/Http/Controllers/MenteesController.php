@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Description;
+use App\Models\Evaluation;
 use Auth;
 
 class MenteesController extends Controller
@@ -29,9 +31,10 @@ class MenteesController extends Controller
         //ddd($mentees);
 
         $departments = Department::pluck('department')->all();
+        $descriptions = Description::pluck('description')->all();
 
 
-        return view('manage.mentees', compact('mentees','departments'));
+        return view('manage.mentees', compact('mentees','departments','descriptions'));
 
     }
 
@@ -106,6 +109,9 @@ class MenteesController extends Controller
     {
         $employee = User::find($id);
         $login_user = User::find(Auth::user()->id);
+        //dd($employee->evaluation);
+        //dd($employee);
+        //dd($employee->evaluation);
         // ddd($employee);
         return view('mypage.index', compact('employee','login_user'));
     }
@@ -113,8 +119,10 @@ class MenteesController extends Controller
     public function search(Request $request)
     {
         //空白削除
+        // dd($request);
         $keyword = trim($request->keyword);
         $department = $request->department;
+        $description = $request->description;
         // ヒットしたユーザの id を配列で取得
         if ($department == 'null'){
             $users  = Employee::where('status', 'mentee')
@@ -128,15 +136,46 @@ class MenteesController extends Controller
         };
         // Employee テーブルの user_id カラムで上記配列に含まれているものを抽出
         $mentees = User::query()
-        ->where('name', 'like', "%{$keyword}%")
+            ->where('name', 'like', "%{$keyword}%")
             ->whereIn('id', $users)
             ->get();
         //ddd($employees);
         // ddd($mentees);
         // ddd($request->department);
+        if ($description != 'null'){
+            $menteesid = User::query()
+                            ->where('name', 'like', "%{$keyword}%")
+                            ->whereIn('id', $users)
+                            ->pluck('id')
+                            ->all();
 
-         $departments = Department::pluck('department')->all();
+            $menteesid2 = Evaluation::getAllOrderByEvaluation()
+                                    ->where('description',$description)
+                                    ->whereIn('user_id',$menteesid)
+                                    ->pluck('user_id')
+                                    ->all();
+            
+            $mentees = User::query()
+                           ->wherein('id',$menteesid2)
+                           ->get();
+        }
+        /*
+        foreach($mentees as $mentee){
+            dd($mentee->evaluation);
+        }
+        */
+        $departments = Department::pluck('department')->all();
+        $descriptions = Description::pluck('description')->all();
 
-        return view('manage.mentees', compact('mentees','departments'));
+    
+        if($description != 'null'){
+            return view('manage.description', compact('mentees','departments','descriptions','description'));
+        }else{
+            return view('manage.mentees', compact('mentees','departments','descriptions'));
+        }
+
+        
+        //descriptions->検索バーのプルダウンに利用、description->各menteeのところに表示
+        //return view('manage.description', compact('mentees','departments','descriptions','description'));
     }
 }
