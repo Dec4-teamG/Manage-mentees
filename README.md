@@ -14,6 +14,3 @@
 
 -   Laravel
 -   MySQL
--   Docker
--   Tailwind CSS
--   Qiita API
