@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <form class="flex" action="{{ route('techblog') }}" method="GET">
                         @csrf
-                        <div class="flex-auto m-4">
+                        <div class="flex-auto ">
                             <input class="w-full border py-2 text-grey-darkest" type="text" name="keyword" id="keyword" value="{{ old('keyword') }}" placeholder="キーワードを入力してください">
                         </div>
                         @include('common.errors')
