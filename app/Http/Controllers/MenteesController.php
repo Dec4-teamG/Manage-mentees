@@ -123,6 +123,8 @@ class MenteesController extends Controller
         $keyword = trim($request->keyword);
         $department = $request->department;
         $description = $request->description;
+
+        //dd($description);
         // ヒットしたユーザの id を配列で取得
         if ($department == 'null'){
             $users  = Employee::where('status', 'mentee')
@@ -158,6 +160,7 @@ class MenteesController extends Controller
             $mentees = User::query()
                            ->wherein('id',$menteesid2)
                            ->get();
+
         }
         /*
         foreach($mentees as $mentee){
@@ -166,9 +169,11 @@ class MenteesController extends Controller
         */
         $departments = Department::pluck('department')->all();
         $descriptions = Description::pluck('description')->all();
+        
 
     
         if($description != 'null'){
+            //dd($description);
             return view('manage.description', compact('mentees','departments','descriptions','description'));
         }else{
             return view('manage.mentees', compact('mentees','departments','descriptions'));

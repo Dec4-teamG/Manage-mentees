@@ -16,8 +16,8 @@
                             <div class="py-6 flex-auto">
                                   <select class="form-control" id="description" name="description" > 
                                       <option value="null" selected>評価項目を選択してください</option>
-                                      @foreach ($descriptions as $description)
-                                      <option value=<?php echo $description;?>><?php echo $description;?></option>
+                                      @foreach ($descriptions as $descriptio)
+                                      <option value=<?php echo $descriptio;?>><?php echo $descriptio;?></option>
                                       @endforeach
                                   </select>
                             </div>
@@ -61,22 +61,20 @@
                 <td class="py-4 px-6 border-b border-grey-light">
                   <a href="{{route('mentees.menteemypage', $mentee ->id)}}">
                   <div class="flex flex-row">
-                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$mentee->name}}</h3>
+                   <h3 class="text-l eft font-bold text-lg text-grey-dark flex-1">{{$mentee->name}}</h3>
                   <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$mentee->employee->department}}</h3>
-                  @foreach ($mentee->evaluation as $evaluation)
-                    @if ($evaluation->description == $description)
-                    <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$description}}</h3>
-                        @if($evaluation->evaluation == 1)
+                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$description}}</h3>
+                  @foreach ($mentee->evaluation as $eva)
+                    @if ($eva->description == $description && $eva->evaluation == 1)
                         <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★☆☆☆☆</h3>
-                        @elseif($evaluation->evaluation == 2)
+                    @elseif ($eva->description == $description && $eva->evaluation == 2)
                         <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★☆☆☆</h3>
-                        @elseif($evaluation->evaluation == 3)
+                    @elseif ($eva->description == $description && $eva->evaluation == 3)
                         <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★★☆☆</h3>
-                        @elseif($evaluation->evaluation == 4)
+                    @elseif ($eva->description == $description && $eva->evaluation == 4)
                         <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★★★☆</h3>
-                        @elseif($evaluation->evaluation == 5)
+                    @elseif ($eva->description == $description && $eva->evaluation == 5)
                         <h3 class="text-left font-bold text-lg text-grey-dark flex-1">★★★★★</h3>
-                        @endif
                     @endif
                   @endforeach
                   </div>
