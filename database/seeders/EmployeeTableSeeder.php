@@ -25,7 +25,7 @@ class EmployeeTableSeeder extends Seeder
             'updated_at' =>'2023-02-12 08:46:41',
             'user_id' =>1,
             'department' =>'null',
-            'status' =>'null',
+            'status' =>'manager',
             'profile' =>'null',
             'github' =>'null',
             'image' =>'null',
