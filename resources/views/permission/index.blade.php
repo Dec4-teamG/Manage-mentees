@@ -21,10 +21,19 @@
               @foreach ($employees as $employee)
               <tr class="hover:bg-grey-lighter">
                 <td class="py-4 px-6 border-b border-grey-light">
-                  <h3 class="text-left font-bold text-lg text-grey-dark">{{$employee->id}}</h3>
-                  <h3 class="text-left font-bold text-lg text-grey-dark">{{$employee->name}}</h3>
-                  <h3 class="text-center font-bold text-lg text-grey-dark">所属：{{$employee->employee->department}}</h3>
-                  <h3 class="text-right font-bold text-lg text-grey-dark">ステータス：{{$employee->employee->status}}</h3>
+                  <div class="flex flex-row">
+                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$employee->id}}</h3>
+                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">{{$employee->name}}</h3>
+                  @if($employee->employee->department != 'null')
+                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">所属：{{$employee->employee->department}}</h3>
+                  @else
+                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">所属：未決定</h3>
+                  @endif
+                  @if($employee->employee->status != 'null')
+                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">ステータス：{{$employee->employee->status}}</h3>
+                  @else
+                  <h3 class="text-left font-bold text-lg text-grey-dark flex-1">ステータス：未決定</h3>
+                  @endif
                   <div class="flex">
                     <form action="{{ route('permission.edit',$employee->id) }}" method="GET" class="text-left">
                       @csrf
@@ -34,6 +43,7 @@
                         </svg>
                       </button>
                     </form>
+                  </div>
                   </div>
                 </td>
               </tr>
