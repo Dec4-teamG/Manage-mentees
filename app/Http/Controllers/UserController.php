@@ -87,7 +87,7 @@ class UserController extends Controller
             'updated_at'=>$user->updated_at,
             'user_id' => $user->id,
             'department' => 'null',
-            'status' => 'null',
+            'status' => 'manager',
             'profile' => 'null',
             'github' => 'null',
             'image' => 'null',
