@@ -17,3 +17,6 @@
 -   Docker
 -   Tailwind CSS
 -   Qiita API
+
+## 使い方
+- 一番初めのユーザーはメールアドレス：example@example,パスワード：passwordでログインしてください。
