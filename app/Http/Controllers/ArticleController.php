@@ -15,7 +15,7 @@ class ArticleController extends Controller
     {
         $keyword = trim($request->keyword);
         $client = new Client;
-        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+title%3A'.$keyword,);
+        $result = $client->request('GET', 'https://qiita.com/api/v2/items?page=1&per_page=100&query=fusic+'.$keyword,);
         $response_body =  $result->getBody();
         $arr = json_decode($response_body); //JSONから配列にする
         $coll = collect($arr);
@@ -76,7 +76,7 @@ class ArticleController extends Controller
                 $i['title'] = $item->get_title();
                 $i['permalink'] = $item->get_permalink();
                 $sm_title = mb_strtolower($i['title']);
-                if ($keyword === null || str_contains($i['title'],$keyword) != false) {
+                if ($keyword === null || str_contains($sm_title,$sm_keyword) != false) {
                     $result['items'][] = $i;              
                 }   
             }
