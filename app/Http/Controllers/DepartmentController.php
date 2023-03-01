@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Department;
+use Validator;
 
 class DepartmentController extends Controller
 {
@@ -35,6 +36,21 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
+         $validator = Validator::make($request->all(), [
+            // descriptionsテーブルのdescriptionカラムで一意チェック
+            'department' => 'required | unique:departments'
+        ]);
+
+       // $id = $request->id;
+       // dd($id);
+
+        if ($validator->fails()) {
+        return redirect()
+        ->route('department.create')
+        ->withInput()
+        ->withErrors($validator);
+        }
+
         $result = Department::create($request->all());
         return redirect()->route('permission.index');
     }
